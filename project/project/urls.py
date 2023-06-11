@@ -21,7 +21,9 @@ from app.views import *
 urlpatterns = [
     path('', get_index),
     path('admin/', admin.site.urls),
-    path('Users/', get_users),
-    path('Vacancie/', get_vacancie),
-    path("Review/", get_review)
+    path('Vacancies/', get_vacancies, name="Vacancies"),
+    path("Reviews/", get_review),
+    path("User/<str:user>", show_user_page),
+    path('Vacancie/<str:vacancie>', show_vacancie_page),
+    path('Review/<str:review>', show_review_page)
 ]

@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/run/media/sam/Новый том/Django_project/venv/bin/python" "$0" "$@"
+'''exec' "/mnt/Новый том/Django_project/venv/bin/python" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re

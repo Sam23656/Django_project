@@ -1,10 +1,104 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <link rel="stylesheet" href="{% static "css/main_style.css" %}" />
 </head>
 <body>
+    
+    <header class="header">
+        <a class="header_logo_a" href=""><p class="header_logo">Logo</p></a>
+        <ul class="header_list">
+            <li class="header_list_item"><a href="">Работодателям</a></li>
+            <li class="header_list_item"><a href="">Работникам</a></li>
+            <li class="header_list_item"><a href="">Помощь</a></li>
+            <a href=""><button class="header_list_item header_list_button">Регистрация</button></a>
+            <a href=""><button class="header_list_item header_list_button">Вход</button></a>
+        </ul>
+    </header>
 
+    <main class="main">
+        <div class="main_1">
+            <ul class="main_1-ul">
+                <li class="main_1-ul-item">Найти работу</li>
+                <li class="main_1-ul-item"><input type="text" class="main_1-ul-input"><a href=""><button class="main_1-ul-button"> Найти</button></a></li>
+            </ul>
+        </div> 
+        <p class="main_2-p">Список доступных работ</p>  
+        <div class="main_2">
+            <ul class="main_2-list">
+                <li class="main_2-list-item">Курьер</li>
+                <li class="main_2-list-item">$15-$1000</li>
+                <li class="main_2-list-item">50 вакансий</li>
+            </ul>
+            <ul class="main_2-list">
+                <li class="main_2-list-item">Водитель</li>
+                <li class="main_2-list-item">$70-$1400</li>
+                <li class="main_2-list-item">100 вакансий</li>
+            </ul>
+            <ul class="main_2-list">
+                <li class="main_2-list-item">Продавец</li>
+                <li class="main_2-list-item">$15-$1000</li>
+                <li class="main_2-list-item">250 вакансий</li>
+            </ul>
+            <ul class="main_2-list">
+                <li class="main_2-list-item">Кассир</li>
+                <li class="main_2-list-item">$15-$900</li>
+                <li class="main_2-list-item">150 вакансий</li>
+            </ul>
+            <ul class="main_2-list">
+                <li class="main_2-list-item">Администратор</li>
+                <li class="main_2-list-item">$1000-$1300</li>
+                <li class="main_2-list-item">400 вакансий</li>
+            </ul>
+            <ul class="main_2-list">
+                <li class="main_2-list-item">Оператор</li>
+                <li class="main_2-list-item">$150-$1500</li>
+                <li class="main_2-list-item">300 вакансий</li>
+            </ul>
+            <ul class="main_2-list">
+                <li class="main_2-list-item">Программист</li>
+                <li class="main_2-list-item">$100-$4500</li>
+                <li class="main_2-list-item">600 вакансий</li>
+            </ul>
+            <ul class="main_2-list">
+                <li class="main_2-list-item">Менеджер</li>
+                <li class="main_2-list-item">$100-$2500</li>
+                <li class="main_2-list-item">2000 вакансий</li>
+            </ul>
+            <ul class="main_2-list">
+                <li class="main_2-list-item">Сварщик</li>
+                <li class="main_2-list-item">$250-$900</li>
+                <li class="main_2-list-item">20 вакансий</li>
+            </ul>
+        </div> 
+    </main>
+
+    <footer class="footer">
+        <div class="footer_1">
+            <ul class="footer_1-list">
+                <li class="footer_1-list-items"><a href="{% url 'Vacancies' %}">Вакансии</a></li>
+                <li class="footer_1-list-items"><a href="">Помощь</a></li>
+                <li class="footer_1-list-items"><a href="">Пользовательское соглашение</a></li>
+                <li class="footer_1-list-items"><a href="">Каталог компаний</a></li>
+            </ul>
+            <ul class="footer_1-list">
+                <li class="footer_1-list-items"><a href="">Условия оказания услуг</a></li>
+                <li class="footer_1-list-items"><a href="">Условия использования сайтов</a></li>
+                <li class="footer_1-list-items"><a href="">Реклама</a></li>
+                <li class="footer_1-list-items"><a href="">Инвесторам</a></li>
+            </ul>
+            <ul class="footer_1-list">
+                <li class="footer_1-list-items"><a class="footer_1-logo" href="">Logo</a></li>
+            </ul>
+        </div>
+        <div class="footer_2">
+            <p class="footer_2-p">© 2023 Компания</p>
+        </div>
+    </footer>
 </body>
 </html>

@@ -12,6 +12,9 @@ class User(models.Model):
     def __str__(self):
         return f"{self.Name} - {self.Sure_Name} - {self.Login} - {self.Password} - {self.Requirments}"
 
+    def get_absolute_url(self):
+        return f"/books/{self.Login}"
+
 
 class Vacancie(models.Model):
     Name = models.CharField(max_length=50)
