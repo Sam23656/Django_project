@@ -1,3 +1,3 @@
 # Django_project
 # Login: Admin
-# Password: Admin12345
+# Password: 123
