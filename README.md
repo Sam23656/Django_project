@@ -1,3 +1,3 @@
 # Django_project
-# Login: Admin
+# email: email@email.com
 # Password: 123
