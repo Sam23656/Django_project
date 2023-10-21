@@ -1,34 +1,18 @@
-import { useState, useEffect } from 'react';
 import './App.scss';
-import get_users from './api/get_users';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './components/Auth/Login';
+import Logout from './components/Auth/Logout';
 function App() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await get_users();
-        setUsers(data);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  return (
-    <>
-      <p>Пользователи:</p>
-      <ul>
-      {users.map((user, index) => (
-        <li key={`${index}`}>{user.username}</li>
-      ))}
-</ul>
-
-    </>
-  );
+  return(
+  <div className="App">
+    <Router>
+    <Routes>
+      <Route path='/Login' element={<Login />} />
+      <Route path='/Logout' element={<Logout />} />
+    </Routes>
+    </Router>
+  </div>
+  )
 }
 
 export default App;
