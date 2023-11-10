@@ -5,6 +5,7 @@ function Logout() {
         e.preventDefault();
         const auth_token = localStorage.getItem('auth_token');
         await delete_auth_token(auth_token);
+        window.location.href = '/';
     }
 
     return (
