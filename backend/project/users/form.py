@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from .models import User
+from .models import CustomUser
 
 
 class UserCreationForm(forms.ModelForm):
@@ -11,8 +11,8 @@ class UserCreationForm(forms.ModelForm):
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 
     class Meta:
-        model = User
-        fields = ('email', 'birthday')
+        model = CustomUser
+        fields = '__all__'
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -34,14 +34,14 @@ class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField()
 
     class Meta:
-        model = User
-        fields = ('email', 'password', 'birthday', 'is_staff')
+        model = CustomUser
+        fields = '__all__'
 
 
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
-    list_display = ('email', 'birthday', 'is_staff')
+    list_display = ('email', 'full_name', 'birthday', 'is_staff')
     list_filter = ('is_staff',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
@@ -51,7 +51,7 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'birthday', 'password1', 'password2'),
+            'fields': ('email', 'full_name', 'birthday', 'password1', 'password2'),
         }),
     )
     search_fields = ('email',)

@@ -5,7 +5,7 @@ from django.db import models
 from django.contrib.auth.hashers import make_password
 
 
-class UserManager(BaseUserManager):
+class CustomUserManager(BaseUserManager):
     def create_user(self, email, username, full_name=None, birthday=None, password=None):
         if not email:
             raise ValueError('Users must have an email address')
@@ -28,7 +28,7 @@ class UserManager(BaseUserManager):
 
 
 # Create your models here.
-class User(AbstractBaseUser, PermissionsMixin):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     username_validator = UnicodeUsernameValidator()
     username = models.CharField(
         max_length=150,
@@ -39,6 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=255)
     birthday = models.DateField(null=True, blank=True)
     is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
     role = models.CharField(
         max_length=20,
         choices=[
@@ -52,7 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'full_name']
 
-    objects = UserManager()
+    objects = CustomUserManager()
 
     def __str__(self):
         return self.username
