@@ -5,7 +5,7 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = async (e) => {
+    const buttonClick = async (e) => {
         e.preventDefault();
         await createAuthToken(email, password);
         window.location.href = '/';
@@ -13,15 +13,16 @@ function Login() {
 
     return (
         <div className="flex flex-col items-center justify-center mt-[20%] ">
+            
             <p className="mb-4">Logo</p>
-            <form className="flex flex-col items-center justify-center" onSubmit={handleSubmit}>
+            <form className="flex flex-col items-center justify-center">
                 <div className="mb-4">
-                    <input className="bg-zinc-800 shadow appearance-none hover:bg-zinc-700 rounded-full w-full py-2 px-3 text-white leading-tight focus:border focus:border-violet-500 focus:outline-none focus:shadow-outline" style={{width: '300px', height: '50px'}} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" name="email" />
+                    <input className="input" onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" name="email" />
                 </div>
                 <div className="mb-4">
-                    <input className="bg-zinc-800 hover:bg-zinc-700 shadow appearance-none hover:border rounded-full w-full py-2 px-3 text-white leading-tight focus:border focus:border-violet-500 focus:outline-none focus:shadow-outline"  style={{width: '300px', height: '50px'}} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" name="password" />
+                    <input className="input" onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" name="password" />
                 </div>
-                <input type="submit" className="bg-gradient-to-r from-violet-900 to-violet-700 hover:from-violet-800 hover:to-violet-600 text-white font-bold py-2 px-4 rounded-full" value="Login"/>
+                <button onClick={(e) => buttonClick(e)} className="btn-primary">Login</button>
             </form>
         </div>
     )
