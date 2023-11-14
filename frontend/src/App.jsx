@@ -2,7 +2,7 @@ import './App.scss';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Auth/Login';
 import Logout from './components/Auth/Logout';
-import Register from './components/Register';
+import Register from './components/Auth/Register';
 function App() {
   return(
   <div className="App">
