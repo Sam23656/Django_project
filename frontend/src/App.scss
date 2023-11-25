@@ -9,6 +9,9 @@
     .bg-swirl-dark{
       background-color: #22201a;
     }
+    .border-rust{
+      border-color: #f56247;
+    }
     .btn-primary {
       @apply me-3 bg-swirl hover:bg-zinc-700  font-bold py-2 px-4 rounded-full text-center;
       width: 130px;
