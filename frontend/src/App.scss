@@ -35,4 +35,13 @@
         @apply border outline-none;
       }
     }
+    .checkbox{
+      @apply bg-swirl-dark shadow appearance-none rounded-full w-full py-2 px-3  leading-tight  focus:border-violet-500;
+    }
+    .checkbox-checked{
+      @apply bg-zinc-700 shadow appearance-none rounded-full w-full py-2 px-3  leading-tight  focus:border-violet-500;
+    }
+    .checkbox-none{
+      display: none;
+    }
 }

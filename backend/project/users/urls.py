@@ -5,6 +5,8 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 
 router.register(r'', UserViewSet)
+
+
 urlpatterns = [
     path('User/', include(router.urls)),
     path('auth/', include('djoser.urls')),

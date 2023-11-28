@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.validators import UnicodeUsernameValidator
@@ -6,7 +7,7 @@ from django.contrib.auth.hashers import make_password
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, username, full_name=None, birthday=None, password=None):
+    def create_user(self, email, username, full_name=None, birthday=None, password=None, role='job_seeker'):
         if not email:
             raise ValueError('Users must have an email address')
         if not username:
@@ -15,16 +16,22 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('Users must have a password')
 
         email = self.normalize_email(email)
-        password = make_password(password)
-        user = self.model(email=email, username=username, password=password, full_name=full_name, birthday=birthday)
-        user.save()
+        user = get_user_model()(
+            email=email,
+            username=username,
+            password=make_password(password),
+            full_name=full_name,
+            birthday=birthday,
+            role=role
+        )
+        user.save(using=self._db)
         return user
 
     def create_superuser(self, email, username, full_name=None, birthday=None, password=None):
-        user = self.create_user(email, username, full_name, birthday, password)
+        user = self.create_user(email, username, full_name, birthday, password=make_password(password))
         user.is_staff = True
         user.is_superuser = True
-        user.save()
+        user.save(using=self._db)
         return user
 
 
