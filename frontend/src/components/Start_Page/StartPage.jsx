@@ -1,7 +1,8 @@
 import Header from "./Header";
 import Footer from "./Footer";
-function StartPage() {
 
+function StartPage() {
+    
     return(
         <div className="flex flex-col">
             <Header />

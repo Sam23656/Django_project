@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 async function createAuthToken(email, password) {
     try {
@@ -11,8 +12,8 @@ async function createAuthToken(email, password) {
         const refresh_token = response.data['refresh'];
 
         if (access_token && refresh_token) {
-            localStorage.setItem('access_token', access_token);
-            localStorage.setItem('refresh_token', refresh_token);
+            Cookies.set('access_token', access_token, {expires: 7});
+            Cookies.set('refresh_token', refresh_token, {expires: 7});
             return access_token;
         } else {
             throw new Error('Token not found in response');

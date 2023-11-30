@@ -4,7 +4,9 @@ import Login from './components/Auth/Login';
 import Logout from './components/Auth/Logout';
 import Register from './components/Auth/Register';
 import StartPage from './components/Start_Page/StartPage';
+import main from './Cookies/clean_cookies';
 function App() {
+  main()
   return(
   <div className="App">
     <Router>

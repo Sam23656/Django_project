@@ -7,6 +7,8 @@ function Footer() {
             <div className="flex flex-col flex-wrap" style={{height: '50px', width: '80%'}}>
             <a className="hover:underline" href="/Login">Login</a>
             <a className="hover:underline" href="/Register">Register</a>
+            <a className="hover:underline" href="/Logout">Logout</a>
+            <a className="hover:underline" href="/">Profile</a>
             
             </div>
         </div>

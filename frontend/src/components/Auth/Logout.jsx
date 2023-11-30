@@ -1,4 +1,5 @@
 import delete_auth_token from "../../api/delete_auth_token";
+import Cookies from 'js-cookie';
 
 function Logout() {
     const handleSubmit = async (e) => {
@@ -7,6 +8,10 @@ function Logout() {
         window.location.href = '/';
     }
 
+    if (!Cookies.get("access_token")) {
+        window.location.href = '/';
+    }
+    else {
     return (
         <div className="flex flex-col items-center justify-center mt-[20%] ">
             <p className="mb-4">Logo</p>
@@ -15,12 +20,13 @@ function Logout() {
                     <p>Are you sure you want to logout?</p>
                 </div>
                 <div className="flex flex-row">
-                <button className="btn-primary">Logout</button>
+                <button className="btn-secondary">Logout</button>
                 <button onClick={() => window.location.href = '/'} className="btn-secondary" >Cancel</button>
                 </div>
             </form>
         </div>
     )
+}
 }
 
 export default Logout;

@@ -1,6 +1,6 @@
 import createAuthToken from "../../api/create_auth_token";
 import { useState } from "react";
-
+import Cookies from "js-cookie";
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -10,10 +10,12 @@ function Login() {
         await createAuthToken(email, password);
         window.location.href = '/';
     }
-
+    if (Cookies.get("access_token")) {
+        window.location.href = '/';
+    }
+    else{
     return (
         <div className="flex flex-col items-center justify-center mt-[20%] ">
-            
             <p className="mb-4">Logo</p>
             <form className="flex flex-col items-center justify-center">
                 <div className="mb-4">
@@ -26,6 +28,7 @@ function Login() {
             </form>
         </div>
     )
+}
 }
 
 export default Login;
