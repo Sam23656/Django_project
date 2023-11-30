@@ -8,7 +8,7 @@ function Footer() {
             <a className="hover:underline" href="/Login">Login</a>
             <a className="hover:underline" href="/Register">Register</a>
             <a className="hover:underline" href="/Logout">Logout</a>
-            <a className="hover:underline" href="/">Profile</a>
+            <a className="hover:underline" href="/Profile">Profile</a>
             
             </div>
         </div>
