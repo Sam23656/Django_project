@@ -23,12 +23,12 @@ function Register() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center mt-[20%] ">
+        <div className="d-flex flex-column align-items-center justify-content-center mt-5">
             <p className="mb-4">Logo</p>
-            <form className="flex flex-col items-center justify-center">
+            <form className="d-flex flex-column align-items-center form-control" style={{width: "15%"}}>
                 <div className="mb-4">
                     <input
-                        className="input"
+                        className="form-control"
                         onChange={(e) => setUsername(e.target.value)}
                         type="text"
                         placeholder="Username"
@@ -37,7 +37,7 @@ function Register() {
                 </div>
                 <div className="mb-4">
                     <input
-                        className="input"
+                        className="form-control"
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="Full Name"
                         type="text"
@@ -46,7 +46,7 @@ function Register() {
                 </div>
                 <div className="mb-4">
                     <input
-                        className="input"
+                        className="form-control"
                         onChange={(e) => setEmail(e.target.value)}
                         type="email"
                         placeholder="Email"
@@ -55,32 +55,36 @@ function Register() {
                 </div>
                 <div className="mb-4">
                     <input
-                        className="input"
+                        className="form-control"
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Password"
                         type="password"
                         name="password"
                     />
                 </div>
-                <div className="mb-4">
-                    <label className={checkbox ? 'checkbox-checked' : 'checkbox'} onClick={() => handleCheckboxChange('job_seeker')}>
-                        <input
-                            type="checkbox"
-                            name="checkbox"
-                            className="checkbox-none"
-                        />
-                        Job Seeker
-                    </label>
-                    <label className={checkbox2 ? 'checkbox-checked ms-2' : 'checkbox ms-2'} onClick={() => handleCheckboxChange('employer')}>
-                        <input
-                            type="checkbox"
-                            name="checkbox"
-                            className="checkbox-none"
-                        />
-                        Employer
-                    </label>
+                <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input
+                    type="radio"
+                    className="btn-check"
+                    name="btnradio"
+                    id="btnradio1"
+                    autoComplete="off"
+                    checked={userType === 'job_seeker'}
+                    onChange={() => handleCheckboxChange('job_seeker')}
+                />
+                <label className="btn btn-outline-primary" htmlFor="btnradio1">Job Seeker</label>
+                <input
+                    type="radio"
+                    className="btn-check"
+                    name="btnradio"
+                    id="btnradio2"
+                    autoComplete="off"
+                    checked={userType === 'employer'}
+                    onChange={() => handleCheckboxChange('employer')}
+                />
+                <label className="btn btn-outline-primary" htmlFor="btnradio2">Employer</label>
                 </div>
-                <button onClick={(e) => buttonClick(e)} className="btn-secondary">Register</button>
+                <button onClick={(e) => buttonClick(e)} className="btn btn-primary mt-2">Register</button>
             </form>
         </div>
     );

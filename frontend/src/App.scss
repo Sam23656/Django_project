@@ -1,47 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "../node_modules/bootstrap/scss/bootstrap";
 
 @layer components {
-    .bg-swirl{
-      background-color: #302e25;
-    }
-    .bg-swirl-dark{
-      background-color: #22201a;
-    }
-    .border-rust{
-      border-color: #f56247;
-    }
-    .btn-primary {
-      @apply me-3 bg-swirl hover:bg-zinc-700  font-bold py-2 px-4 rounded-full text-center;
-      width: 130px;
-      display: inline-block;
-      height: 40px;
-      text-align: center;
-      
-    }
-    .btn-secondary {
-      @apply ms-2 bg-swirl-dark hover:bg-zinc-700  font-bold py-2 px-4 rounded-full;
-      width: 130px;
-      display: inline-block;
-      height: 40px;
-      text-align: center;
-    }
-    .input{
-      @apply bg-swirl-dark shadow appearance-none hover:bg-zinc-700 rounded-full w-full py-2 px-3  leading-tight  focus:border-violet-500;
-      width: '300px';
-      height: '50px';
-      .input:focus{
-        @apply border outline-none;
-      }
-    }
-    .checkbox{
-      @apply bg-swirl-dark shadow appearance-none rounded-full w-full py-2 px-3  leading-tight  focus:border-violet-500;
-    }
-    .checkbox-checked{
-      @apply bg-zinc-700 shadow appearance-none rounded-full w-full py-2 px-3  leading-tight  focus:border-violet-500;
-    }
-    .checkbox-none{
-      display: none;
-    }
+
 }

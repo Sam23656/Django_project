@@ -1,15 +1,15 @@
 import Header from "./Header";
-import Footer from "./Footer";
 
 function StartPage() {
     
     return(
-        <div className="flex flex-col">
-            <Header />
-            <div className="flex self-center mt-2 flex-wrap border-2 bg-swirl-dark rounded border-rust text-center items-center justify-center  flex-col" style={{height: '200px', width: '40%'}}>
-                <p>Start Page</p>
-            </div>
-            <Footer />
+        <div>
+        <Header />
+        <div div className="d-flex flex-column align-items-center">
+        <div style={{marginTop: "140px", width: "50%"}} className="border d-flex flex-column align-items-center border-primary rounded-3">
+            <h1 className="ms-3 me-3">Добро пожаловать</h1>
+        </div>
+        </div>
         </div>
     )
 }

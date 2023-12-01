@@ -15,16 +15,16 @@ function Login() {
     }
     else{
     return (
-        <div className="flex flex-col items-center justify-center mt-[20%] ">
+        <div className="d-flex flex-column align-items-center justify-content-center " style={{marginTop: "20%"}}>
             <p className="mb-4">Logo</p>
-            <form className="flex flex-col items-center justify-center">
+            <form className="form-control" style={{width: "10%"}}>
                 <div className="mb-4">
-                    <input className="input" onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" name="email" />
+                    <input className="form-control" onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" name="email" />
                 </div>
                 <div className="mb-4">
-                    <input className="input" onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" name="password" />
+                    <input className="form-control" onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" name="password" />
                 </div>
-                <button onClick={(e) => buttonClick(e)} className="btn-secondary">Login</button>
+                <button onClick={(e) => buttonClick(e)} className="btn btn-primary ms-5">Login</button>
             </form>
         </div>
     )
