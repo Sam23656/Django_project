@@ -23,7 +23,7 @@ async function cleanExpiresCookies() {
         console.log('Token is still valid.');
       }
     } catch (error) {
-      console.error('Error parsing or verifying token:', error);
+      
     }
   }
 }

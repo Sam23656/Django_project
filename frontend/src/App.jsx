@@ -6,6 +6,7 @@ import Register from './components/Auth/Register';
 import StartPage from './components/Start_Page/StartPage';
 import cleanExpiresCookies from './Cookies/clean_cookies';
 import ProfilePage from './components/Profile/ProfilePage';
+
 function App() {
   cleanExpiresCookies()
   return(
