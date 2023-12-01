@@ -1,4 +1,4 @@
-import register_account from "../../api/register_account";
+import register_account from "../../api/Auth/register_account";
 import { useState } from "react";
 
 function Register() {
@@ -31,7 +31,7 @@ function Register() {
                         className="form-control"
                         onChange={(e) => setUsername(e.target.value)}
                         type="text"
-                        placeholder="Username"
+                        placeholder="Имя пользователя"
                         name="username"
                     />
                 </div>
@@ -39,7 +39,7 @@ function Register() {
                     <input
                         className="form-control"
                         onChange={(e) => setFullName(e.target.value)}
-                        placeholder="Full Name"
+                        placeholder="Настоящее имя"
                         type="text"
                         name="fullName"
                     />
@@ -57,7 +57,7 @@ function Register() {
                     <input
                         className="form-control"
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Password"
+                        placeholder="Пароль"
                         type="password"
                         name="password"
                     />
@@ -72,7 +72,7 @@ function Register() {
                     checked={userType === 'job_seeker'}
                     onChange={() => handleCheckboxChange('job_seeker')}
                 />
-                <label className="btn btn-outline-primary" htmlFor="btnradio1">Job Seeker</label>
+                <label className="btn btn-outline-primary" htmlFor="btnradio1">Соискатель</label>
                 <input
                     type="radio"
                     className="btn-check"
@@ -82,9 +82,9 @@ function Register() {
                     checked={userType === 'employer'}
                     onChange={() => handleCheckboxChange('employer')}
                 />
-                <label className="btn btn-outline-primary" htmlFor="btnradio2">Employer</label>
+                <label className="btn btn-outline-primary" htmlFor="btnradio2">Работодатель</label>
                 </div>
-                <button onClick={(e) => buttonClick(e)} className="btn btn-primary mt-2">Register</button>
+                <button onClick={(e) => buttonClick(e)} className="btn btn-primary mt-2">Зарегистрироваться</button>
             </form>
         </div>
     );

@@ -6,11 +6,12 @@ import Register from './components/Auth/Register';
 import StartPage from './components/Start_Page/StartPage';
 import cleanExpiresCookies from './Cookies/clean_cookies';
 import ProfilePage from './components/Profile/ProfilePage';
+import AllVacancies from './components/Vacancy/AllVacancies';
 
 function App() {
   cleanExpiresCookies()
   return(
-  <div className="App">
+  <div className="App" style={{color: "white"}}>
     <Router>
     <Routes>
       <Route path='/' element={<StartPage />} />
@@ -18,6 +19,7 @@ function App() {
       <Route path='/Logout' element={<Logout />} />
       <Route path='/Register' element={<Register />} />
       <Route path='/Profile' element={<ProfilePage />} />
+      <Route path='/AllVacancies' element={<AllVacancies />} />
     </Routes>
     </Router>
   </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from "../Start_Page/Header";
-import get_user_data from "../../api/get_user_data";
+import get_user_data from "../../api/Auth/get_user_data";
 import Cookies from "js-cookie";
 
 function ProfilePage() {
@@ -10,7 +10,6 @@ function ProfilePage() {
     const fetchData = async () => {
       const userData = await get_user_data(Cookies.get("id"), Cookies.get("access_token"));
       setData(userData);
-      console.log(userData);
     };
 
     fetchData().catch(console.error);

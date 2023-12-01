@@ -1,4 +1,4 @@
-import createAuthToken from "../../api/create_auth_token";
+import createAuthToken from "../../api/Auth/create_auth_token";
 import { useState } from "react";
 import Cookies from "js-cookie";
 function Login() {
@@ -22,9 +22,9 @@ function Login() {
                     <input className="form-control" onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" name="email" />
                 </div>
                 <div className="mb-4">
-                    <input className="form-control" onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" name="password" />
+                    <input className="form-control" onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" type="password" name="password" />
                 </div>
-                <button onClick={(e) => buttonClick(e)} className="btn btn-primary ms-5">Login</button>
+                <button onClick={(e) => buttonClick(e)} className="btn btn-primary ms-5">Войти</button>
             </form>
         </div>
     )

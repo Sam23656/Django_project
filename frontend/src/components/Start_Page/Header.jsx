@@ -7,9 +7,13 @@ function Header() {
         <div className="container-fluid ">
           <a className="navbar-brand mb-3" href="/">Logo</a>
           <div className="collapse navbar-collapse">
-            <ul className=" d-flex navbar-nav me-auto">
+            <ul className=" d-flex flex-row navbar-nav me-auto">
              <li className="nav-item">
                 <a className="nav-link active mb-3" aria-current="page" href="/">Главная</a>
+                
+              </li>
+              <li className="nav-item">
+                <a className='nav-link active mb-3' aria-current="page" href="/AllVacancies">Вакансии</a>
               </li>
             </ul>
             <ul className="navbar-nav mb-2 mb-lg-0">
