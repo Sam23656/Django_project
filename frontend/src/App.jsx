@@ -7,6 +7,7 @@ import StartPage from './components/Start_Page/StartPage';
 import cleanExpiresCookies from './Cookies/clean_cookies';
 import ProfilePage from './components/Profile/ProfilePage';
 import AllVacancies from './components/Vacancy/AllVacancies';
+import AllResumePage from './components/Resume/AllResume';
 
 function App() {
   cleanExpiresCookies()
@@ -20,6 +21,7 @@ function App() {
       <Route path='/Register' element={<Register />} />
       <Route path='/Profile' element={<ProfilePage />} />
       <Route path='/AllVacancies' element={<AllVacancies />} />
+      <Route path='/AllResume' element={<AllResumePage />} />
     </Routes>
     </Router>
   </div>

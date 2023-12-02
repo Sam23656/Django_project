@@ -33,6 +33,7 @@ function Register() {
                         type="text"
                         placeholder="Имя пользователя"
                         name="username"
+                        required
                     />
                 </div>
                 <div className="mb-4">
@@ -42,6 +43,7 @@ function Register() {
                         placeholder="Настоящее имя"
                         type="text"
                         name="fullName"
+                        required
                     />
                 </div>
                 <div className="mb-4">
@@ -51,6 +53,7 @@ function Register() {
                         type="email"
                         placeholder="Email"
                         name="email"
+                        required
                     />
                 </div>
                 <div className="mb-4">
@@ -60,6 +63,7 @@ function Register() {
                         placeholder="Пароль"
                         type="password"
                         name="password"
+                        required
                     />
                 </div>
                 <div className="btn-group" role="group" aria-label="Basic radio toggle button group">

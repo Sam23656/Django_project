@@ -46,3 +46,5 @@ def get_user_id_by_email(request, email):
             return None
     else:
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+

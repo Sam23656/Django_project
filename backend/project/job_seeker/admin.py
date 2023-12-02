@@ -1,6 +1,6 @@
 from django.contrib import admin
-from job_seeker.models import FavoriteCategory, JobApplication
+from job_seeker.models import *
 
 # Register your models here.
 
-admin.site.register([FavoriteCategory, JobApplication])
+admin.site.register([FavoriteTag, JobApplication, Resume, FavoriteLanguage])

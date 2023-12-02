@@ -9,7 +9,6 @@ function AllVacanciesPage() {
     const fetchData = async () => {
       const userData = await GetAllVacancies();
       setData(userData);
-      console.log(userData);
     };
 
     fetchData().catch(console.error);

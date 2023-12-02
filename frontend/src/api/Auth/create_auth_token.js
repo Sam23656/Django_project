@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 async function createAuthToken(email, password) {
     try {
-        const response = await axios.post('http://127.0.0.1:8000/api/auth/jwt/create/', {
+        const response = await axios.post('http://127.0.0.1:8000/api/User/auth/jwt/create', {
             email: email,
             password: password,
         });

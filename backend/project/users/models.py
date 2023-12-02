@@ -27,10 +27,25 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, username, full_name=None, birthday=None, password=None):
-        user = self.create_user(email, username, full_name, birthday, password=make_password(password))
-        user.is_staff = True
-        user.is_superuser = True
+    def create_superuser(self, email, username, full_name=None, birthday=None, password=None, role='admin'):
+        if not email:
+            raise ValueError('Users must have an email address')
+        if not username:
+            raise ValueError('Users must have an username')
+        if not password:
+            raise ValueError('Users must have a password')
+
+        email = self.normalize_email(email)
+        user = get_user_model()(
+            email=email,
+            username=username,
+            password=make_password(password),
+            full_name=full_name,
+            birthday=birthday,
+            role=role,
+            is_staff=True,
+            is_superuser=True
+        )
         user.save(using=self._db)
         return user
 

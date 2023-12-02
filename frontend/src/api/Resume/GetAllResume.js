@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-async function GetAllVacancies() {
+async function GetAllResume() {
     try {
-        const response = await axios.get('http://127.0.0.1:8000/api/Employee/Vacancy/', {
+        const response = await axios.get('http://127.0.0.1:8000/api/JobSeeker/Resume/', {
         });
         return response.data
     } catch (error) {
@@ -11,4 +11,5 @@ async function GetAllVacancies() {
     }
 }
 
-export default GetAllVacancies;
+export default GetAllResume;
+

@@ -3,10 +3,10 @@ from django.urls import path, include
 from employee.views import VacancyViewSet
 from rest_framework.routers import DefaultRouter
 
-router = DefaultRouter()
+Vacancy_router = DefaultRouter()
 
-router.register(r'', VacancyViewSet)
+Vacancy_router.register(r'', VacancyViewSet)
 
 urlpatterns = [
-    path('/', include(router.urls)),
+    path('/Vacancy/', include(Vacancy_router.urls)),
 ]
