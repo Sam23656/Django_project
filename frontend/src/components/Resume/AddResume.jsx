@@ -1,25 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from "../Start_Page/Header";
+import Header from '../Start_Page/Header';
 import Cookies from 'js-cookie';
-import GetResumeDetail from '../../api/Resume/GetResumeDetail';
-import get_user_data from '../../api/Auth/get_user_data';
-import UpdateResume from '../../api/Resume/UpdateResume';
+import CreateResume from '../../api/Resume/CreateResume'; 
 import GetAllLanguages from '../../api/Language/GetAllLanguages';
-import GetLanguage from '../../api/Language/GetLanguage';
 import GetAllTags from '../../api/Tag/GetAllTags';
-import GetTag from '../../api/Tag/GetTag';
 
-function ResumeUpdatePage() {
-  const [data, setData] = useState(null);
-  const [user, setUser] = useState(null);
+function AddResumePage() {
   const [allLanguages, setAllLanguages] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [allTags, setAllTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
-  const searchParams = new URLSearchParams(location.search);
-  const idString = searchParams.get('id');
-  const id = JSON.parse(decodeURIComponent(idString));
   const [education, setEducation] = useState('');
   const [experience, setExperience] = useState('');
   const [social_links, setSocial_links] = useState('');
@@ -28,12 +19,10 @@ function ResumeUpdatePage() {
 
   const buttonClick = async (e) => {
     e.preventDefault();
-    if (Cookies.get('id') == data.creator || Cookies.get('admin_status') == "true") {
-      try{
-      await UpdateResume(
-        Cookies.get("id"),
-        id,
-        Cookies.get("access_token"),
+    try {
+      await CreateResume(
+        Cookies.get('id'),
+        Cookies.get('access_token'),
         selectedTags,
         selectedLanguages,
         education,
@@ -41,67 +30,36 @@ function ResumeUpdatePage() {
         social_links,
         additional_info
       );
-      navigate(`/ResumeDetail/?id=${id}`);
-    }catch (error) {
-      alert('Skill и Language не должны быть пустыми');
-    }
-      
-    } else {
-      alert('Вы не можете редактировать этот резюме');
+      navigate('/AllResume'); 
+    } catch (error) {
+      console.error('Error creating resume:', error);
+      alert('Error creating resume. Please try again.');
     }
   };
-  
 
   useEffect(() => {
     const fetchData = async () => {
-      const userData = await GetResumeDetail(id);
-      setData(userData);
-      const data = await get_user_data(userData.creator);
-      setUser(data);
-  
-      const languagePromises = userData.languages.map(async (language) => {
-        const data = await GetLanguage(language);
-        return data;
-      });
-  
-      const tagPromises = userData.skills.map(async (tag) => {
-        const data = await GetTag(tag);
-        return data;
-      });
-  
       setAllLanguages(await GetAllLanguages());
-      setAllTags(await GetAllTags())
-      const resolvedLanguages = await Promise.all(languagePromises);
-      const initialSelectedLanguages = resolvedLanguages.map(language => language.id);
-      setSelectedLanguages(initialSelectedLanguages);
-      const resolvedTags = await Promise.all(tagPromises);
-      const initialSelectedTags = resolvedTags.map(tag => tag.id);
-      setSelectedTags(initialSelectedTags);
-
-      setEducation(userData.education);
-      setExperience(userData.experience);
-      setSocial_links(userData.social_links);
-      setAdditional_info(userData.additional_info);
+      setAllTags(await GetAllTags());
     };
-  
-    fetchData().catch(console.error);
-  }, [id]);
-  
 
-  if (data === null || user === null) {
-    return <div>Loading...</div>;
-  }
+    fetchData().catch(console.error);
+  }, []);
 
   return (
     <div>
       <Header />
       <div className="d-flex flex-column align-items-center flex-wrap">
-        <h1 className="ms-3 me-3">Обновить резюме</h1>
-        <div style={{ marginTop: "140px", width: "100%" }} className="d-flex flex-wrap justify-content-center border-primary rounded-3">
-          <form key={data.id} className="mb-4 mt-2 p-3 form-control border-primary border rounded" style={{ width: "30%", margin: "10px", boxShadow: "5px 10px 8px rgba(0, 0, 1, .3)" }}>
-            <h3> Никнейм: {user.username}</h3>
-            <p>Имя: {user.full_name}</p>
-            <p>Электронная почта: {user.email}</p>
+        <h1 className="ms-3 me-3">Создать резюме</h1>
+        <div
+          style={{ marginTop: '140px', width: '100%' }}
+          className="d-flex flex-wrap justify-content-center border-primary rounded-3"
+        >
+          <form
+            className="mb-4 mt-2 p-3 form-control border-primary border rounded"
+            style={{ width: '30%', margin: '10px', boxShadow: '5px 10px 8px rgba(0, 0, 1, .3)' }}
+          >
+
             <p>Языки программирования:</p>
             <div className="btn-group" role="group" aria-label="Basic checkbox toggle button group">
               {allLanguages.map((language, index) => (
@@ -150,14 +108,16 @@ function ResumeUpdatePage() {
               ))}
             </div>
             <p>Образование:</p>
-            <textarea type="text" className='form-control' name="education" onChange={(e) => setEducation(e.target.value)} value={data.education} />
+            <textarea type="text" className='form-control' name="education" onChange={(e) => setEducation(e.target.value)} />
             <p>Опыт работы:</p>
-            <textarea type="text" className='form-control' name="experience" onChange={(e) => setExperience(e.target.value)} value={data.experience} />
+            <textarea type="text" className='form-control' name="experience" onChange={(e) => setExperience(e.target.value)} />
             <p>Социальные сети:</p>
-            <textarea type="text" className='form-control' name="social_links" onChange={(e) => setSocial_links(e.target.value)} value={data.social_links} />
+            <textarea type="text" className='form-control' name="social_links" onChange={(e) => setSocial_links(e.target.value)} />
             <p>Дополнительная информация:</p>
-            <textarea type="text" className='form-control' name="additional_info" onChange={(e) => setAdditional_info(e.target.value)} value={data.additional_info} />
-            <button className="btn btn-primary mt-3" onClick={buttonClick}>Обновить</button>
+            <textarea type="text" className='form-control' name="additional_info" onChange={(e) => setAdditional_info(e.target.value)} />
+            <button className="btn btn-primary mt-3" onClick={buttonClick}>
+              Создать
+            </button>
           </form>
         </div>
       </div>
@@ -165,4 +125,4 @@ function ResumeUpdatePage() {
   );
 }
 
-export default ResumeUpdatePage;
+export default AddResumePage;
