@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from users.models import CustomUser, CustomUserManager
-from users.permisions import IsAdminOrCreateOnly
+from users.permisions import IsOwnerOrAdminCanReadUpdate
 from users.serializers import UserSerializer
 
 
@@ -16,7 +16,7 @@ from users.serializers import UserSerializer
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAdminOrCreateOnly]
+    permission_classes = [IsOwnerOrAdminCanReadUpdate]
 
     def perform_create(self, serializer):
         manager = CustomUserManager()

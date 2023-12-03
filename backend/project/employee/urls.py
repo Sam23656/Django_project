@@ -8,5 +8,5 @@ Vacancy_router = DefaultRouter()
 Vacancy_router.register(r'', VacancyViewSet)
 
 urlpatterns = [
-    path('/Vacancy/', include(Vacancy_router.urls)),
+    path('Vacancy/', include(Vacancy_router.urls)),
 ]

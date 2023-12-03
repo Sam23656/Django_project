@@ -8,5 +8,5 @@ Resume_router = DefaultRouter()
 Resume_router.register(r'', ResumeViewSet)
 
 urlpatterns = [
-    path('/Resume/', include(Resume_router.urls)),
+    path('Resume/', include(Resume_router.urls)),
 ]
