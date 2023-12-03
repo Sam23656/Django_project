@@ -1,4 +1,4 @@
-import register_account from "../../api/Auth/register_account";
+import register_account from "../../api/Auth/register";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 

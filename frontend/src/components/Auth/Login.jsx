@@ -1,4 +1,4 @@
-import createAuthToken from "../../api/Auth/create_auth_token";
+import logIn from '../../api/Auth/log_in';
 import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import Cookies from "js-cookie";
@@ -9,7 +9,7 @@ function Login() {
 
     const buttonClick = async (e) => {
         e.preventDefault();
-        await createAuthToken(email, password);
+        await logIn(email, password);
         navigate('/');
     }
     if (Cookies.get("access_token")) {

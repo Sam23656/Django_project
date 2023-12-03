@@ -15,7 +15,7 @@ function AllResumePage() {
       setData(userData);
 
       const userPromises = userData.map(async (resume) => {
-        const data = await get_user_data(resume.job_seeker, Cookies.get("access_token"));
+        const data = await get_user_data(resume.creator, Cookies.get("access_token"));
         return data;
       });
 

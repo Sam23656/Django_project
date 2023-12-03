@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-async function get_user_data(id, token) {
+async function get_user_data(id) {
     try {
         const response = await axios.get(`http://127.0.0.1:8000/api/User/${id}/`, {
         })

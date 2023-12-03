@@ -1,4 +1,4 @@
-import delete_auth_token from "../../api/Auth/delete_auth_token";
+import logOut from '../../api/Auth/log_out';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ function Logout() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await delete_auth_token()
+        await logOut()
         navigate('/');
     }
 

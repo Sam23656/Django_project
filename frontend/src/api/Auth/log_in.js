@@ -1,7 +1,8 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import get_user_data from './get_user_data';
 
-async function createAuthToken(email, password) {
+async function logIn(email, password) {
     try {
         const response = await axios.post('http://127.0.0.1:8000/api/User/auth/jwt/create', {
             email: email,
@@ -11,11 +12,13 @@ async function createAuthToken(email, password) {
         const access_token  = response.data['access'];
         const refresh_token = response.data['refresh'];
         const id = response2.data
-
+        const user_data = await get_user_data(id)
+        const admin_status = user_data.role == 'admin' ? true : false;
         if (access_token && refresh_token && id) {
             Cookies.set('access_token', access_token, {expires: 7});
             Cookies.set('refresh_token', refresh_token, {expires: 7});
             Cookies.set('id', id, {expires: 365 * 100});
+            Cookies.set('admin_status', admin_status, {expires: 365 * 100});
             return access_token;
         } else {
             throw new Error('Token not found in response');
@@ -26,4 +29,4 @@ async function createAuthToken(email, password) {
     }
 }
 
-export default createAuthToken;
+export default logIn;

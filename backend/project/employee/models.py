@@ -22,7 +22,7 @@ class Language(models.Model):
 
 
 class Vacancy(models.Model):
-    employer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField()
     salary = models.PositiveIntegerField()
@@ -31,4 +31,4 @@ class Vacancy(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.employer.username} - {self.title}"
+        return f"{self.creator.username} - {self.title}"
