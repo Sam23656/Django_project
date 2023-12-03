@@ -10,5 +10,10 @@ class IsOwnerOrAdminCanReadUpdate(BasePermission):
 
         if request.method == 'POST' and request.user.is_superuser:
             return True
-
-        return obj.creator == request.user or request.user.is_superuser
+        if request.user.is_authenticated:
+            try:
+                return obj.creator == request.user or request.user.role == 'admin'
+            except AttributeError:
+                return request.user.role == 'admin'
+        else:
+            return False

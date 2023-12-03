@@ -3,23 +3,41 @@ import Header from "../Start_Page/Header";
 import Cookies from 'js-cookie';
 import GetResumeDetail from '../../api/Resume/GetResumeDetail';
 import get_user_data from '../../api/Auth/get_user_data';
+import GetLanguage from '../../api/Language/GetLanguage';
+import GetTag from '../../api/Tag/GetTag';
 
 function ResumeDetailPage() {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
+  const [languages, setLanguages] = useState([]);
+  const [tags, setTags] = useState([]);
   const searchParams = new URLSearchParams(location.search);
   const idString = searchParams.get('id');
   const id = JSON.parse(decodeURIComponent(idString));
-
   useEffect(() => {
     const fetchData = async () => {
-    const userData = await GetResumeDetail(id);
-    setData(userData);
-    const data = await get_user_data(userData.creator);
-    setUser(data);
+        const userData = await GetResumeDetail(id);
+        setData(userData);
+        const languagePromises = userData.languages.map(async (language) => {
+            const data = await GetLanguage(language);
+            return data;
+        });
+        const tagPromises = userData.skills.map(async (tag) => {
+            const data = await GetTag(tag);
+            return data;
+        })
+        const resolvedLanguages = await Promise.all(languagePromises);
+        const resolvedTags = await Promise.all(tagPromises);
+        setLanguages(resolvedLanguages);
+        setTags(resolvedTags);
+
+        const creatorData = await get_user_data(userData.creator);
+        setUser(creatorData);
     };
+
     fetchData().catch(console.error);
-  }, []);
+}, [id]);
+
 
   if (data === null || user === null) {
     return <div>Loading...</div>;
@@ -34,6 +52,8 @@ function ResumeDetailPage() {
               <h3> Никнейм: {user.username}</h3>
               <p>Имя: {user.full_name}</p>
               <p>Электронная почта: {user.email}</p>
+              <p>Языки: {languages.map((language) => language.title).join(', ')}</p>
+              <p>Теги: {tags.map((skill) => skill.title).join(', ')}</p>
               <p>Образование: {data.education}</p>
               <p>Опыт работы: {data.experience}</p>
               <p>Социальные сети: {data.social_links}</p>
