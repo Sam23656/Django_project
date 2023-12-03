@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from "../Start_Page/Header";
 import Cookies from 'js-cookie';
 import GetAllResume from '../../api/Resume/GetAllResume';
@@ -42,7 +43,7 @@ function AllResumePage() {
               <p>Электронная почта: {users[index].email}</p>
               <p>Опыт работы: {resume.experience}</p>
               <p>Дополнительная информация: {resume.additional_info}</p>
-              <a href="" className="btn btn-primary">Подробнее</a>
+              <Link to={`/ResumeDetail?id=${resume.id}`} className="btn btn-primary">Подробнее</Link>
             </div>
           ))}
         </div>

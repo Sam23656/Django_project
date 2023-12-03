@@ -1,17 +1,19 @@
 import createAuthToken from "../../api/Auth/create_auth_token";
+import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import Cookies from "js-cookie";
 function Login() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const buttonClick = async (e) => {
         e.preventDefault();
         await createAuthToken(email, password);
-        window.location.href = '/';
+        navigate('/');
     }
     if (Cookies.get("access_token")) {
-        window.location.href = '/';
+        navigate('/');
     }
     else{
     return (

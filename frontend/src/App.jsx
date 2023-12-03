@@ -8,11 +8,12 @@ import cleanExpiresCookies from './Cookies/clean_cookies';
 import ProfilePage from './components/Profile/ProfilePage';
 import AllVacancies from './components/Vacancy/AllVacancies';
 import AllResumePage from './components/Resume/AllResume';
+import ResumeDetailPage from './components/Resume/ResumeDetail';
 
 function App() {
   cleanExpiresCookies()
   return(
-  <div className="App" style={{color: "white"}}>
+  <div className="App bg-dark" data-bs-theme="dark" style={{color: "white"}}>
     <Router>
     <Routes>
       <Route path='/' element={<StartPage />} />
@@ -22,6 +23,7 @@ function App() {
       <Route path='/Profile' element={<ProfilePage />} />
       <Route path='/AllVacancies' element={<AllVacancies />} />
       <Route path='/AllResume' element={<AllResumePage />} />
+      <Route path='/ResumeDetail' element={<ResumeDetailPage />} />
     </Routes>
     </Router>
   </div>

@@ -15,9 +15,17 @@ function Header() {
               <li className="nav-item">
                 <a className='nav-link active mb-3' aria-current="page" href="/AllVacancies">Вакансии</a>
               </li>
-              <li className="nav-item">
+              {Cookies.get("access_token") ? (
+                <>
+                <li className="nav-item">
                 <a className="nav-link active mb-3" aria-current="page" href="/AllResume">Резюме</a>
-              </li>
+                </li>
+                </>
+              ): (
+                <>
+                </>
+              )}
+              
             </ul>
             <ul className="navbar-nav mb-2 mb-lg-0">
             {Cookies.get("access_token") ? (

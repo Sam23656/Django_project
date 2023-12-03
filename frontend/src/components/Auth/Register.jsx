@@ -1,5 +1,6 @@
 import register_account from "../../api/Auth/register_account";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
     const [username, setUsername] = useState('');
@@ -7,18 +8,17 @@ function Register() {
     const [password, setPassword] = useState('');
     const [fullName, setFullName] = useState('');
     const [userType, setUserType] = useState('job_seeker');
-    const [checkbox, setCheckbox] = useState(false);
-    const [checkbox2, setCheckbox2] = useState(false);
+
+    const navigate = useNavigate();
 
     const buttonClick = async (e) => {
         e.preventDefault();
         await register_account(username, email, password, fullName, userType);
-        window.location.href = '/';
+        navigate('/');
     }
 
     const handleCheckboxChange = (type) => {
-        setCheckbox(type === 'job_seeker');
-        setCheckbox2(type === 'employer');
+
         setUserType(type);
     }
 
@@ -26,7 +26,7 @@ function Register() {
         <div className="d-flex flex-column align-items-center justify-content-center mt-5">
             <p className="mb-4">Logo</p>
             <form className="d-flex flex-column align-items-center form-control" style={{width: "15%"}}>
-                <div className="mb-4">
+                <div className="mb-4" style={{color: "white"}}>
                     <input
                         className="form-control"
                         onChange={(e) => setUsername(e.target.value)}
