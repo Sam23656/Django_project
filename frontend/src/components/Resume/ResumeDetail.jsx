@@ -8,8 +8,8 @@ function ResumeDetailPage() {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
   const searchParams = new URLSearchParams(location.search);
-  const uriString = searchParams.get('id');
-  const id = JSON.parse(decodeURIComponent(uriString));
+  const idString = searchParams.get('id');
+  const id = JSON.parse(decodeURIComponent(idString));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +42,7 @@ function ResumeDetailPage() {
               <>{user.id == Cookies.get("id") || Cookies.get("admin_status") === 'true'  ? (
                 <>
                   <a className='btn btn-primary' href={`/ResumeUpdate/?id=${data.id}`}>Редактировать резюме</a>
+                  <a className='ms-2 btn btn-primary' href={`/ResumeDelete/?id=${data.id}`}>Удалить резюме</a>
                 </>
               ) : (<></>)}</>
             </div>

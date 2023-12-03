@@ -10,6 +10,7 @@ import AllVacancies from './components/Vacancy/AllVacancies';
 import AllResumePage from './components/Resume/AllResume';
 import ResumeDetailPage from './components/Resume/ResumeDetail';
 import ResumeUpdatePage from './components/Resume/ResumeUpdate';
+import ResumeDeletePage from './components/Resume/ResumeDelete';
 
 function App() {
   cleanExpiresCookies()
@@ -26,6 +27,7 @@ function App() {
       <Route path='/AllResume' element={<AllResumePage />} />
       <Route path='/ResumeDetail' element={<ResumeDetailPage />} />
       <Route path='/ResumeUpdate' element={<ResumeUpdatePage />} />
+      <Route path='/ResumeDelete' element={<ResumeDeletePage />} />
     </Routes>
     </Router>
   </div>

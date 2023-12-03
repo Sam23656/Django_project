@@ -5,7 +5,6 @@ class IsOwnerOrAdminCanReadUpdate(BasePermission):
     message = "Доступ запрещен. Вы не являетесь владельцем или администратором."
 
     def has_object_permission(self, request, view, obj):
-        print(request.user)
         if request.method in SAFE_METHODS:
             return True
 
