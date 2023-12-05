@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from "../Start_Page/Header";
 import GetAllVacancies from '../../api/Vacancy/GetAllVacancies';
+import GetLanguage from '../../api/Language/GetLanguage';
+import GetTag from '../../api/Tag/GetTag';
 
 function AllVacanciesPage() {
   const [data, setData] = useState(null);
@@ -9,7 +11,21 @@ function AllVacanciesPage() {
   useEffect(() => {
     const fetchData = async () => {
       const userData = await GetAllVacancies();
-      setData(userData);
+      for (let i = 0; i < userData.length; i++) {
+        const languagePromises = userData[i].languages.map(async (language) => {
+          const data = await GetLanguage(language);
+          return data;
+        });
+        const resolvedLanguages = await Promise.all(languagePromises);
+        userData[i].languages = resolvedLanguages;
+        const tagPromises = userData[i].tags.map(async (tag) => {
+          const data = await GetTag(tag);
+          return data;
+        })
+        const resolvedTags = await Promise.all(tagPromises);
+        userData[i].tags = resolvedTags;
+        setData(userData);
+      }
     };
 
     fetchData().catch(console.error);
@@ -30,7 +46,10 @@ function AllVacanciesPage() {
               <h3>Название вакансии: {vacancy.title}</h3>
               <p>Описание вакансии: {vacancy.description}</p>
               <p>Зарплата: {vacancy.salary}</p>
-              <Link to={`/VacancieDeteail?id=${vacancy.id}`} className="btn btn-primary">Подробнее</Link>
+              <p>Языки: {vacancy.languages.map((language) => language.title).join(', ')}</p>
+              <p>Теги: {vacancy.tags.map((tag) => tag.title).join(', ')}</p>
+              <p>Дата создания вакансии: {new Date(vacancy.created_at).toLocaleDateString()}</p>
+              <Link to={`/VacancyDetail?id=${vacancy.id}`} className="btn btn-primary">Подробнее</Link>
             </div>
             ))}
         </div>

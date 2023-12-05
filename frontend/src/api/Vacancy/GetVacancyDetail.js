@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-async function GetVacancieDetail(id) {
+async function GetVacancyDetail(id) {
     try {
         const response = await axios.get(`http://127.0.0.1:8000/api/Employee/Vacancy/${id}/`, {
             
@@ -12,5 +12,5 @@ async function GetVacancieDetail(id) {
     }
 }
 
-export default GetVacancieDetail;
+export default GetVacancyDetail;
 

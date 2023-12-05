@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Header from "../Start_Page/Header";
 import Cookies from 'js-cookie';
-import GetVacancieDetail from '../../api/Vacancy/GetVacancieDetail';
+import GetVacancyDetail from '../../api/Vacancy/GetVacancyDetail';
 import get_user_data from '../../api/Auth/get_user_data';
 import GetLanguage from '../../api/Language/GetLanguage';
 import GetTag from '../../api/Tag/GetTag';
 
-function VacancieDeteailPage() {
+function VacancyDetailPage() {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
   const [languages, setLanguages] = useState([]);
@@ -16,7 +16,7 @@ function VacancieDeteailPage() {
   const id = JSON.parse(decodeURIComponent(idString));
   useEffect(() => {
     const fetchData = async () => {
-        const userData = await GetVacancieDetail(id);
+        const userData = await GetVacancyDetail(id);
         setData(userData);
         const languagePromises = userData.languages.map(async (language) => {
             const data = await GetLanguage(language);
@@ -60,8 +60,8 @@ function VacancieDeteailPage() {
               <p>Дата создания вакансии: {new Date(data.created_at).toLocaleDateString()}</p>
               <>{user.id == Cookies.get("id") || Cookies.get("admin_status") === 'true'  ? (
                 <>
-                  <a className='btn btn-primary' href={`/`}>Редактировать вакансию</a>
-                  <a className='ms-2 btn btn-primary' href={``}>Удалить вакансию</a>
+                  <a className='btn btn-primary' href={`/VacancyUpdate/?id=${data.id}`}>Редактировать вакансию</a>
+                  <a className='ms-2 btn btn-primary' href={`/VacancyDelete/?id=${data.id}`}>Удалить вакансию</a>
                 </>
               ) : (<></>)}</>
             </div>
@@ -71,4 +71,4 @@ function VacancieDeteailPage() {
   );
 }
 
-export default VacancieDeteailPage;
+export default VacancyDetailPage;

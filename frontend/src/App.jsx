@@ -12,7 +12,10 @@ import ResumeDetailPage from './components/Resume/ResumeDetail';
 import ResumeUpdatePage from './components/Resume/ResumeUpdate';
 import ResumeDeletePage from './components/Resume/ResumeDelete';
 import AddResumePage from './components/Resume/AddResume';
-import VacancieDeteailPage from './components/Vacancy/VacancieDeteail';
+import VacancyDetailPage from './components/Vacancy/VacancyDetail';
+import VacancyDeletePage from './components/Vacancy/VacancyDelete';
+import VacancyUpdatePage from './components/Vacancy/VacancyUpdate';
+import AddVacancyPage from './components/Vacancy/AddVacancy';
 
 function App() {
   cleanExpiresCookies()
@@ -28,7 +31,10 @@ function App() {
       <Route path='/Profile' element={<ProfilePage />} />
 
       <Route path='/AllVacancies' element={<AllVacancies />} />
-      <Route path='/VacancieDeteail' element={<VacancieDeteailPage />} />
+      <Route path='/VacancyDetail' element={<VacancyDetailPage />} />
+      <Route path='/VacancyDelete' element={<VacancyDeletePage />} />
+      <Route path='/VacancyUpdate' element={<VacancyUpdatePage />} />
+      <Route path='/AddVacancy' element={<AddVacancyPage />} />
 
       <Route path='/AllResume' element={<AllResumePage />} />
       <Route path='/ResumeDetail' element={<ResumeDetailPage />} />

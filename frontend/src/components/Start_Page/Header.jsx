@@ -36,9 +36,18 @@ function Header() {
                 </>
               ) : (
                 <>
-                  
                 </>
               )}
+              {Cookies.get("user_role") === "employer" || Cookies.get("user_role") === "admin" ? (
+                <>
+                  <li className="nav-item">
+                    <a className="nav-link active mb-3" aria-current="page" href="/AddVacancy">
+                      Добавить вакансию
+                    </a>
+                  </li>
+                </>) : (
+                <>
+                </>)}
             </>
           )}
         </ul>
