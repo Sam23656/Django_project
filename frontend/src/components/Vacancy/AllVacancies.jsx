@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from "../Start_Page/Header";
 import GetAllVacancies from '../../api/Vacancy/GetAllVacancies';
 
@@ -29,7 +30,7 @@ function AllVacanciesPage() {
               <h3>Название вакансии: {vacancy.title}</h3>
               <p>Описание вакансии: {vacancy.description}</p>
               <p>Зарплата: {vacancy.salary}</p>
-              <a href="" className="btn btn-primary">Подробнее</a>
+              <Link to={`/VacancieDeteail?id=${vacancy.id}`} className="btn btn-primary">Подробнее</Link>
             </div>
             ))}
         </div>
