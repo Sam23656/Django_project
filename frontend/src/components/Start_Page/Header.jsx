@@ -45,6 +45,11 @@ function Header() {
                       Добавить вакансию
                     </a>
                   </li>
+                  <li className="nav-item">
+                    <a className="nav-link active mb-3" aria-current="page" href="/YourVacancy">
+                      Ваши вакансии
+                    </a>
+                  </li>
                 </>) : (
                 <>
                 </>)}

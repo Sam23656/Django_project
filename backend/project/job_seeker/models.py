@@ -24,10 +24,16 @@ class FavoriteLanguage(models.Model):
     creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     languages = models.ForeignKey(Language, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.creator.username} - {self.languages}"
+
 
 class FavoriteTag(models.Model):
     creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.creator.username} - {self.tag}"
 
 
 class JobApplication(models.Model):
@@ -35,6 +41,5 @@ class JobApplication(models.Model):
     creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
-
-
-
+    def __str__(self):
+        return f"{self.creator.username} - {self.vacancy}"
