@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'users',
     'employee',
     'job_seeker',
+    'chat',
 
 ]
 
@@ -74,7 +77,7 @@ TEMPLATES = [
         },
     },
 ]
-
+ASGI_APPLICATION = 'project.asgi.application'
 WSGI_APPLICATION = 'project.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
