@@ -9,7 +9,6 @@ class WebSocketAuthMiddleware(BaseMiddleware):
     async def __call__(self, scope, receive, send):
         query = scope.get("headers", [])
         auth_header = query[4][1].decode("utf-8").split(" ")
-
         if auth_header[0] == "TOKEN":
             token = auth_header[1]
             scope["user"] = await self.get_user_from_token(token)
