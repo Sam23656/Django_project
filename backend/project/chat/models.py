@@ -11,6 +11,9 @@ class Message(models.Model):
     message = models.TextField()
     send_date_time = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.message
+
 
 class Chat(models.Model):
     first_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='first_user')
