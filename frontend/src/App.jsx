@@ -18,6 +18,7 @@ import VacancyUpdatePage from './components/Vacancy/VacancyUpdate';
 import AddVacancyPage from './components/Vacancy/AddVacancy';
 import YourVacanciesPage from './components/Vacancy/YourVacancies';
 import CreateJobApplicationPage from './components/JobApplication/CreateJobApplication';
+import ChatPage from './components/Chat/Chat';
 
 function App() {
   cleanExpiresCookies()
@@ -46,6 +47,8 @@ function App() {
       <Route path='/ResumeUpdate' element={<ResumeUpdatePage />} />
       <Route path='/ResumeDelete' element={<ResumeDeletePage />} />
       <Route path='/AddResume' element={<AddResumePage />} />
+
+      <Route path='/Chat' element={<ChatPage />} />
     </Routes>
     </Router>
   </div>

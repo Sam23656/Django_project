@@ -94,7 +94,7 @@ function VacancyDetailPage() {
         {jobApplications.map((jobApplication) => (
           <div key={jobApplication.id} className="mb-4 mt-2 p-3 border-primary border rounded" style={{ width: "30%", margin: "10px", boxShadow: "5px 10px 8px rgba(0, 0, 1, .3)" }}>
             <p>Заявка от: {jobApplication.creator.username}</p>
-            <a href="" className="btn btn-primary">Открыть Чат</a>
+            <a href="Chat/" className="btn btn-primary">Открыть Чат</a>
           </div>
         ))}
       </div>

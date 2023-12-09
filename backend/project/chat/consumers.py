@@ -29,7 +29,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 second_user = str(self.chat.get_chat_id()).split(f'{self.user.id}')
                 second_user = await self.filter_second_user(second_user)
                 self.second_user = await self.get_user_from_id(second_user[0])
-
             else:
                 self.chat = await self.chat_create(
                     await self.get_user_from_id(self.scope["user"].id),
@@ -50,11 +49,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
         await self.accept()
         messages = await self.get_all_messages()
-        serialized_messages = await self.serialize_messages(messages)
         await self.send(
-            text_data=json.dumps(serialized_messages)
+            text_data=json.dumps({
+                "messages": await self.serialize_messages(messages),
+            })
         )
-
     @staticmethod
     @database_sync_to_async
     def serialize_messages(messages):
@@ -102,7 +101,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def get_all_messages(self):
-        return list(self.chat.messages.all())
+        messages = self.chat.messages.all()
+        return messages
 
     async def chat_message(self, event):
         message = event["message"]
