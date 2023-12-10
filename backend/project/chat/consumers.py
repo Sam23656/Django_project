@@ -5,7 +5,7 @@ from channels.db import database_sync_to_async
 
 from users.models import CustomUser
 from .models import Chat, Message
-
+last_message = None
 
 class ChatConsumer(AsyncWebsocketConsumer):
     def __init__(self, *args, **kwargs):
@@ -15,6 +15,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.chat = None
         self.room_group_name = None
         self.room_name = None
+        self.last_message = None
 
     async def connect(self):
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
@@ -48,23 +49,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.room_group_name, self.channel_name
         )
         await self.accept()
-        messages = await self.get_all_messages()
-        await self.send(
-            text_data=json.dumps({
-                "messages": await self.serialize_messages(messages),
-            })
-        )
-    @staticmethod
-    @database_sync_to_async
-    def serialize_messages(messages):
-        serialized_messages = [
-            {
-                "message": message.message,
-                "username": message.sender.username
-            }
-            for message in messages
-        ]
-        return serialized_messages
 
     @staticmethod
     @database_sync_to_async
@@ -91,35 +75,45 @@ class ChatConsumer(AsyncWebsocketConsumer):
         return chat
 
     @database_sync_to_async
-    def message_create(self, sender, receiver, message):
+    def message_create_async(self, sender, receiver, message):
+        global last_message
         if sender is None or receiver is None or message is None:
             return False
-        message = Message(sender=sender, receiver=receiver, message=message)
-        message.save()
+        if last_message is not None:
+            if last_message.message == message:
+                return last_message
+
+        message = Message.objects.create(
+            sender=sender,
+            receiver=receiver,
+            message=message
+        )
+        last_message = message
         self.chat.messages.add(message)
         return message
 
-    @database_sync_to_async
-    def get_all_messages(self):
-        messages = self.chat.messages.all()
-        return messages
-
     async def chat_message(self, event):
         message = event["message"]
-        message = await self.message_create(self.user, self.second_user, message)
+        print(event)
+        if event["sender"] != "user":
+            return
+        else:
+            message = await self.message_create_async(self.user, self.second_user, message)
 
-        await self.send(
-            text_data=json.dumps({
-                "message": message.message,
-                "username": message.sender.username
-            })
-        )
+            await self.send(
+                text_data=json.dumps({
+                    "message": message.message,
+                    "sender": "server",
+                    "username": message.sender.username
+                })
+            )
         return message
 
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
+        sender = text_data_json["sender"]
 
         await self.channel_layer.group_send(
-            self.room_group_name, {"type": "chat.message", "message": message}
+            self.room_group_name, {"type": "chat.message", "sender": f"{sender}", "message": message}
         )

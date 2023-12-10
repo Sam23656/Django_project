@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-async function GetChats() {
+async function GetChatsDetail(id) {
     try {
-        const response = await axios.get('http://127.0.0.1:8000/api/Chat/Chat/', {
+        const response = await axios.get(`http://127.0.0.1:8000/api/Chat/Chat/${id}/`, {
         });
         return response.data
     } catch (error) {
@@ -11,4 +11,4 @@ async function GetChats() {
     }
 }
 
-export default GetChats;
+export default GetChatsDetail;

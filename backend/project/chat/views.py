@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 
-from chat.models import Chat
-from chat.serializers import ChatSerializer
+from chat.models import Chat, Message
+from chat.serializers import ChatSerializer, MessageSerializer
 from .permisions import ListOrDetailPermission
 
 
@@ -13,3 +13,8 @@ class ChatView(viewsets.ModelViewSet):
     serializer_class = ChatSerializer
     permission_classes = [ListOrDetailPermission]
 
+
+class MessageView(viewsets.ModelViewSet):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    permission_classes = [ListOrDetailPermission]
