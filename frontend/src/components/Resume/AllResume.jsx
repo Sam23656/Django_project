@@ -99,6 +99,7 @@ function AllResumePage() {
         </div>
         <div style={{ width: "100%" }} className="d-flex flex-column align-items-center flex-wrap">
           <h1 className="ms-3 me-3">Все резюме</h1>
+          {Cookies.get("user_role") === "admin" && <Link to="/AddResume" className="btn btn-primary">Добавить резюме</Link>}
           <div style={{ marginTop: "140px", width: "100%" }} className="d-flex flex-wrap justify-content-center border-primary rounded-3">
             {filteredData.map((resume, index) => (
               <div key={resume.id} className="mb-4 mt-2 p-3 border-primary border rounded" style={{ width: "30%", margin: "10px", boxShadow: "5px 10px 8px rgba(0, 0, 1, .3)" }}>

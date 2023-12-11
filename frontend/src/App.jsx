@@ -18,6 +18,9 @@ import VacancyUpdatePage from './components/Vacancy/VacancyUpdate';
 import AddVacancyPage from './components/Vacancy/AddVacancy';
 import YourVacanciesPage from './components/Vacancy/YourVacancies';
 import CreateJobApplicationPage from './components/JobApplication/CreateJobApplication';
+import LanguageUpdatePage from './components/Language/LanguageUpdate';
+import LanguageDeletePage from './components/Language/LanguageDelete';
+import AddLanguagePage from './components/Language/LanguageAdd';
 import ChatPage from './components/Chat/Chat';
 import AdminPanelPage from './components/Admin/AdminPanel';
 import Header from './components/Start_Page/Header';
@@ -53,9 +56,12 @@ function App() {
 
       <Route path='/Chat' element={<ChatPage />} />
 
-      <Route path='/AdminPanel' element={<AdminPanelPage />} />
+      <Route path='/Admin' element={<AdminPanelPage />} />
 
-      
+      <Route path='/Admin/LanguageUpdate' element={<LanguageUpdatePage />} />
+      <Route path='/Admin/LanguageDelete' element={<LanguageDeletePage />} />
+      <Route path='/Admin/LanguageAdd' element={<AddLanguagePage />} />
+
     </Routes>
     </Router>
   </div>

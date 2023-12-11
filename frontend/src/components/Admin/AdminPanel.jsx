@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom';
 import AllVacanciesPage from "../Vacancy/AllVacancies";
 import AllResumePage from "../Resume/AllResume";
+import AllLanguagesPage from '../Language/AllLanguages';
 
 function AdminPanelPage() {
   const [data, setData] = useState(null);
@@ -13,13 +14,12 @@ function AdminPanelPage() {
   const navigate = useNavigate();  
 
   useEffect(() => {
-    if (Cookies.get("admin_status") !== "true" || Cookies.get("user_role") !== "admin" || Cookies.get("access_token") === undefined ) {
-      if (Cookies.get("user_role") == "moderator") {
-        
-      }
-      else{
-        navigate('/');
-      }
+    const isAdmin = Cookies.get("admin_status") === "true" && Cookies.get("user_role") === "admin";
+    const isModerator = Cookies.get("user_role") === "moderator";
+    const hasAccessToken = Cookies.get("access_token") !== undefined;
+  
+    if (!isAdmin && !hasAccessToken) {
+      navigate(isModerator ? '/Admin?location=Languages' : '/');
     }
 
     const fetchData = async () => {
@@ -38,23 +38,23 @@ function AdminPanelPage() {
     <div>
       <div className="d-flex flex-row justify-content-center  flex-wrap">
         <div className="d-flex flex-row flex-wrap align-items-center ms-2" style={{ width: "100%", margin: "auto", height: "100px" }}>
-        <div className="">
-            <a href='' className='btn btn-secondary' style={{fontSize: "30px", fontWeight: "bold"}}>Админ панель</a>
+        <div>
+            <a href='/Admin' className='btn btn-secondary' style={{fontSize: "30px", fontWeight: "bold"}}>Админ панель</a>
         </div>
           <div className="ms-3 mt-2">
-            <a href='/AdminPanel?location=Vacancy' className='btn btn-secondary form-control'>Вакансии</a>
+            <a href='/Admin?location=Vacancy' className='btn btn-secondary form-control'>Вакансии</a>
           </div>
           <div className="ms-3 mt-2">
-            <a href='/AdminPanel?location=Resume' className='btn btn-secondary'>Резюме</a>
+            <a href='/Admin?location=Resume' className='btn btn-secondary'>Резюме</a>
           </div>
           <div className="ms-3 mt-2">
-            <a href='/AdminPanel?location=Languages' className='btn btn-secondary'>Языки</a>
+            <a href='/Admin?location=Languages' className='btn btn-secondary'>Языки</a>
           </div>
           <div className="ms-3 mt-2">
-            <a href='/AdminPanel?location=Tags' className='btn btn-secondary'>Теги</a>
+            <a href='/Admin?location=Tags' className='btn btn-secondary'>Теги</a>
           </div>
           <div className="ms-3 mt-2">
-            <a href='/AdminPanel?location=Messages' className='btn btn-secondary'>Сообщения</a>
+            <a href='/Admin?location=Messages' className='btn btn-secondary'>Сообщения</a>
           </div>
       </div>
       <div className="" style={{ width: "100%" }}>
@@ -66,6 +66,10 @@ function AdminPanelPage() {
         <div>
           <AllResumePage  />
         </div>
+        ) : (locationValue == "Languages") ? (
+          <div>
+            <AllLanguagesPage />
+          </div>
         ) : (<></>)}
       </div>
     </div>

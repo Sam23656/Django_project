@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import GetAllVacancies from '../../api/Vacancy/GetAllVacancies';
 import GetLanguage from '../../api/Language/GetLanguage';
 import GetTag from '../../api/Tag/GetTag';
@@ -87,6 +88,7 @@ function AllVacanciesPage() {
         </div>
       <div style={{ width: "100%" }} className="d-flex flex-column align-items-center flex-wrap">
       <h1 className="ms-3 me-3">Все вакансии</h1>
+      {Cookies.get("user_role") === "admin" && <Link to="/AddVacancy" className="btn btn-primary">Добавить вакансию</Link>}
         <div style={{ marginTop: "140px", width: "100%" }} className="d-flex flex-wrap justify-content-center border-primary rounded-3">
           {filteredData.map((vacancy) => (
             <div key={vacancy.id} className="mb-4 mt-2 p-3 border-primary border rounded" style={{ width: "30%", margin: "10px", boxShadow: "5px 10px 8px rgba(0, 0, 1, .3)" }}>

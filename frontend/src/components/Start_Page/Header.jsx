@@ -41,7 +41,7 @@ function Header() {
               {Cookies.get("user_role") === "admin" || Cookies.get("user_role") === "moderator" ? (
               <>
               <li className="nav-item">
-                <a className="nav-link active mb-3" aria-current="page" href="/AdminPanel">
+                <a className="nav-link active mb-3" aria-current="page" href="/Admin">
                   Админ панель
                 </a>
               </li>
