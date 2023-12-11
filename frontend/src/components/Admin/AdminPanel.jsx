@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import AllVacanciesPage from "../Vacancy/AllVacancies";
 import AllResumePage from "../Resume/AllResume";
 import AllLanguagesPage from '../Language/AllLanguages';
+import AllTagsPage from '../Tag/AllTags';
 
 function AdminPanelPage() {
   const [data, setData] = useState(null);
@@ -69,6 +70,10 @@ function AdminPanelPage() {
         ) : (locationValue == "Languages") ? (
           <div>
             <AllLanguagesPage />
+          </div>
+        ) : (locationValue == "Tags") ? (
+          <div>
+            <AllTagsPage />
           </div>
         ) : (<></>)}
       </div>

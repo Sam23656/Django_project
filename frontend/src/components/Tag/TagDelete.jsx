@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate }  from 'react-router-dom';
 import Cookies from 'js-cookie';
-import GetLanguage from '../../api/Language/GetLanguage';
-import DeleteLanguage from '../../api/Language/DeleteLanguage';
+import GetTag from '../../api/Tag/GetTag';
+import DeleteTag from '../../api/Tag/DeleteTag'
 
-function LanguageDeletePage() {
+function TagDeletePage() {
   const [data, setData] = useState(null);
   const searchParams = new URLSearchParams(location.search);
   const idString = searchParams.get('id');
@@ -14,11 +14,11 @@ function LanguageDeletePage() {
   const buttonClick = async (e) => {
     e.preventDefault();
     if (Cookies.get('admin_status') == "true") {
-        await DeleteLanguage(id, Cookies.get("access_token") );
-        navigate('/Admin?location=Languages');
+        await DeleteTag(id, Cookies.get("access_token") );
+        navigate('/Admin?location=Tags');
     }
     else {
-        alert('Вы не можете удалить этот язык');
+        alert('Вы не можете удалить этот тег');
     }
 }
 
@@ -31,7 +31,7 @@ function LanguageDeletePage() {
       isModerator ? console.log('Pass') : navigate('/');
     }
     const fetchData = async () => {
-    const userData = await GetLanguage(id);
+    const userData = await GetTag(id);
     setData(userData);
     };
     fetchData().catch(console.error);
@@ -43,7 +43,7 @@ function LanguageDeletePage() {
   return (
     <div>
       <div className="d-flex flex-column align-items-center flex-wrap">
-        <h1 className="ms-3 me-3">Удалить язык</h1>
+        <h1 className="ms-3 me-3">Удалить тег</h1>
         <div style={{ marginTop: "140px", width: "100%" }} className="d-flex flex-wrap justify-content-center border-primary rounded-3">
             <form key={data.id} className="mb-4 mt-2 p-3 form-control border-primary border rounded" style={{ width: "30%", margin: "10px", boxShadow: "5px 10px 8px rgba(0, 0, 1, .3)" }}>
               <h3> Название: {data.title}</h3>
@@ -56,4 +56,4 @@ function LanguageDeletePage() {
   );
 }
 
-export default LanguageDeletePage;
+export default TagDeletePage;

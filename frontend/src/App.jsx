@@ -24,6 +24,9 @@ import AddLanguagePage from './components/Language/LanguageAdd';
 import ChatPage from './components/Chat/Chat';
 import AdminPanelPage from './components/Admin/AdminPanel';
 import Header from './components/Start_Page/Header';
+import AddTagPage from './components/Tag/TagAdd';
+import TagDeletePage from './components/Tag/TagDelete';
+import TagUpdatePage from './components/Tag/TagUpdate';
 
 function App() {
   cleanExpiresCookies()
@@ -61,6 +64,10 @@ function App() {
       <Route path='/Admin/LanguageUpdate' element={<LanguageUpdatePage />} />
       <Route path='/Admin/LanguageDelete' element={<LanguageDeletePage />} />
       <Route path='/Admin/LanguageAdd' element={<AddLanguagePage />} />
+
+      <Route path='/Admin/TagAdd' element={<AddTagPage />} />
+      <Route path='/Admin/TagDelete' element={<TagDeletePage />} />
+      <Route path='/Admin/TagUpdate' element={<TagUpdatePage />} />
 
     </Routes>
     </Router>

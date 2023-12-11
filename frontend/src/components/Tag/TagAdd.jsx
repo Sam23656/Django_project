@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import CreateLanguage from '../../api/Language/CreateLanguage';
+import CreateTag from '../../api/Tag/CreateTag';
 
-function AddLanguagePage() {
+function AddTagPage() {
   const [title, setTitle] = useState('');
   const navigate = useNavigate();
 
   const buttonClick = async (e) => {
     e.preventDefault();
     try {
-      await CreateLanguage(
+      await CreateTag(
         Cookies.get('access_token'),
         title,
       );
-      navigate('/Admin?location=Languages'); 
+      navigate('/Admin?location=Tags'); 
     } catch (error) {
       console.error('Error creating language:', error);
       alert('Error creating language. Please try again.');
     }
   };
-  
+
   useEffect(() => {
     const isAdmin = Cookies.get("admin_status") === "true" && Cookies.get("user_role") === "admin";
     const isModerator = Cookies.get("user_role") === "moderator";
     const hasAccessToken = Cookies.get("access_token") !== undefined;
     
     if (!isAdmin && !hasAccessToken) {
-      navigate(isModerator ? '/Admin?location=Languages' : '/');
+      navigate(isModerator ? '/Admin?location=Tags' : '/');
     }
   }, []);
 
@@ -57,4 +57,4 @@ function AddLanguagePage() {
   );
 }
 
-export default AddLanguagePage;
+export default AddTagPage;
