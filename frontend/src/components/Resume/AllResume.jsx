@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Header from "../Start_Page/Header";
 import Cookies from 'js-cookie';
 import GetAllResume from '../../api/Resume/GetAllResume';
 import get_user_data from '../../api/Auth/get_user_data';
@@ -67,7 +66,6 @@ function AllResumePage() {
 
   return (
     <div>
-      <Header />
       <div className='d-flex'>
         <div className="d-flex flex-column flex-wrap justify-content-center align-items-center ms-2" style={{ width: "20%", height: "100%", margin: "auto", minHeight: "85vh" }}>
           <div className="me-3">

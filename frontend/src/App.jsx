@@ -20,11 +20,13 @@ import YourVacanciesPage from './components/Vacancy/YourVacancies';
 import CreateJobApplicationPage from './components/JobApplication/CreateJobApplication';
 import ChatPage from './components/Chat/Chat';
 import AdminPanelPage from './components/Admin/AdminPanel';
+import Header from './components/Start_Page/Header';
 
 function App() {
   cleanExpiresCookies()
   return(
   <div className="App bg-dark" data-bs-theme="dark" style={{color: "white"}}>
+    <Header />
     <Router>
     <Routes>
       <Route path='/' element={<StartPage />} />

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../Start_Page/Header';
 import GetChats from '../../api/Chat/GetChats';
 import Cookies from 'js-cookie';
 import get_user_data from '../../api/Auth/get_user_data';
@@ -104,7 +103,6 @@ function ChatPage() {
 
   return (
     <div>
-      <Header />
       <div className='d-flex'>
         <div
           className='d-flex flex-column flex-wrap justify-content-center align-items-start ms-2'

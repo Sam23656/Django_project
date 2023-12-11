@@ -38,6 +38,18 @@ function Header() {
                 <>
                 </>
               )}
+              {Cookies.get("user_role") === "admin" || Cookies.get("user_role") === "moderator" ? (
+              <>
+              <li className="nav-item">
+                <a className="nav-link active mb-3" aria-current="page" href="/AdminPanel">
+                  Админ панель
+                </a>
+              </li>
+            </>
+          ) : (
+            <>
+            </>
+          )}
               {Cookies.get("user_role") === "employer" || Cookies.get("user_role") === "admin" ? (
                 <>
                   <li className="nav-item">

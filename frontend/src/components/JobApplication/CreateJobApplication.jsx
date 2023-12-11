@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import Header from '../Start_Page/Header';
 import Cookies from 'js-cookie';
 import CreateJobApplication from '../../api/JobApplication/CreateJobApplication';
 
@@ -27,7 +26,6 @@ function CreateJobApplicationPage() {
 
   return (
     <div>
-      <Header />
       <div className="d-flex flex-column align-items-center flex-wrap">
         <h1 className="ms-3 me-3">Создать заявку</h1>
         <div

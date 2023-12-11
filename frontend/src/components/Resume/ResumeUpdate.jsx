@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from "../Start_Page/Header";
 import Cookies from 'js-cookie';
 import GetResumeDetail from '../../api/Resume/GetResumeDetail';
 import get_user_data from '../../api/Auth/get_user_data';
@@ -207,7 +206,6 @@ function ResumeUpdatePage() {
 </div>
 
 
-      <Header />
       <div className="d-flex flex-column align-items-center flex-wrap">
         <h1 className="ms-3 me-3">Обновить резюме</h1>
         <div style={{ marginTop: "140px", width: "100%" }} className="d-flex flex-wrap justify-content-center border-primary rounded-3">

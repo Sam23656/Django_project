@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../Start_Page/Header';
 import Cookies from 'js-cookie';
 import CreateVacancy from '../../api/Vacancy/CreateVacancy';
 import GetAllLanguages from '../../api/Language/GetAllLanguages';
@@ -158,8 +157,6 @@ function AddVacancyPage() {
     </div>
   </div>
 </div>
-
-      <Header />
       <div className="d-flex flex-column align-items-center flex-wrap">
         <h1 className="ms-3 me-3">Создать резюме</h1>
         <div
