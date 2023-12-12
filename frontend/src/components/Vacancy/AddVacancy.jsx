@@ -31,8 +31,8 @@ function AddVacancyPage() {
       );
       navigate('/AllVacancies'); 
     } catch (error) {
-      console.error('Error creating resume:', error);
-      alert('Error creating resume. Please try again.');
+      console.error('Error creating vacancy:', error);
+      alert('Error creating vacancy. Please try again.');
     }
   };
 

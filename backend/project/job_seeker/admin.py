@@ -3,4 +3,4 @@ from job_seeker.models import *
 
 # Register your models here.
 
-admin.site.register([FavoriteTag, JobApplication, Resume, FavoriteLanguage])
+admin.site.register([JobApplication, Resume])

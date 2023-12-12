@@ -2,13 +2,12 @@
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 
-from users.models import CustomUser, CustomUserManager
+from users.models import CustomUser, CustomUserManager, Feedback
 from users.permisions import IsOwnerOrAdminCanReadUpdate
-from users.serializers import UserSerializer
+from users.serializers import UserSerializer, FeedbackSerializer
 
 
 # Create your views here.
@@ -48,3 +47,7 @@ def get_user_id_by_email(request, email):
         return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
+class FeedbackViewSet(viewsets.ModelViewSet):
+    queryset = Feedback.objects.all()
+    serializer_class = FeedbackSerializer
+    permission_classes = [IsOwnerOrAdminCanReadUpdate]

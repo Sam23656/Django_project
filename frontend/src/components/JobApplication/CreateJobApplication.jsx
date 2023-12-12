@@ -19,8 +19,8 @@ function CreateJobApplicationPage() {
       );
       navigate('/AllVacancies'); 
     } catch (error) {
-      console.error('Error creating resume:', error);
-      alert('Error creating resume. Please try again.');
+      console.error('Error creating application:', error);
+      alert('Error creating application. Please try again.');
     }
   };
 

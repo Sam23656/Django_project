@@ -7,6 +7,7 @@ import AllResumePage from "../Resume/AllResume";
 import AllLanguagesPage from '../Language/AllLanguages';
 import AllTagsPage from '../Tag/AllTags';
 import AllMessagesPage from '../Chat/AllMessages';
+import AllFeddbacksPage from '../Feedback/AllFeedbacks';
 
 function AdminPanelPage() {
   const [data, setData] = useState(null);
@@ -58,6 +59,9 @@ function AdminPanelPage() {
           <div className="ms-3 mt-2">
             <a href='/Admin?location=Messages' className='btn btn-secondary'>Сообщения</a>
           </div>
+          <div className="ms-3 mt-2">
+            <a href='/Admin?location=Feedback' className='btn btn-secondary'>Отзывы</a>
+          </div>
       </div>
       <div className="" style={{ width: "100%" }}>
         {(locationValue == "Vacancy") ? (
@@ -79,6 +83,10 @@ function AdminPanelPage() {
         ) : (locationValue == "Messages") ? (
           <div>
             <AllMessagesPage />
+          </div>
+        ) : (locationValue == "Feedback") ? (
+          <div>
+            <AllFeddbacksPage />
           </div>
         ) : (<></>)}
       </div>

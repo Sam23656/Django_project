@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from datetime import timedelta
 from pathlib import Path
+import dotenv
+import psycopg2
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,6 +26,7 @@ SECRET_KEY = 'django-insecure-$*aws+cm80*0u^2ec=fh+b7dite45))bhnx2%%@ls#rg%(-&!s
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+dotenv.load_dotenv()
 
 ALLOWED_HOSTS = []
 
@@ -98,8 +101,13 @@ CORS_ALLOWED_ORIGINS = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': dotenv.get_key(key_to_get='PGDATABASE', dotenv_path=BASE_DIR / '.env'),
+        'USER': dotenv.get_key(key_to_get='PGUSERNAME', dotenv_path=BASE_DIR / '.env'),
+        'PASSWORD': dotenv.get_key(key_to_get='PGPASSWORD', dotenv_path=BASE_DIR / '.env'),
+        'HOST': dotenv.get_key(key_to_get='PGHOST', dotenv_path=BASE_DIR / '.env'),
+        'PORT': dotenv.get_key(key_to_get='PGPORT', dotenv_path=BASE_DIR / '.env'),
+
     }
 }
 

@@ -5,16 +5,32 @@ import get_user_data from '../../api/Auth/get_user_data';
 import GetLanguage from '../../api/Language/GetLanguage';
 import GetTag from '../../api/Tag/GetTag';
 import GetJobApplications from '../../api/JobApplication/GetJobApplications';
+import GetAllFeedbacks from '../../api/Feedback/GetAllFeedbacks';
+import CreateFeedback from '../../api/Feedback/CreateFeedback';
 
 function VacancyDetailPage() {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
   const [languages, setLanguages] = useState([]);
   const [tags, setTags] = useState([]);
+  const [feedbacks, setFeedbacks] = useState(null);
   const [jobApplications, setJobApplications] = useState([]);
+  const [message, setMessage] = useState('');
   const searchParams = new URLSearchParams(location.search);
   const idString = searchParams.get('id');
   const id = JSON.parse(decodeURIComponent(idString));
+
+
+  const buttonClick = async (e) => {
+    e.preventDefault();
+    await CreateFeedback(
+      Cookies.get("access_token"),
+      id,
+      Cookies.get("id"),
+      message
+    )
+    window.location.reload();
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -50,6 +66,16 @@ function VacancyDetailPage() {
           return jobApplication;
         }));
         setJobApplications(mappedJobApplications);
+
+        const feedbacksData = await GetAllFeedbacks();
+        const feedbacks = await Promise.all(feedbacksData.map(async feedback => {
+          if (feedback.object == id) {
+            const userData = await get_user_data(feedback.user);
+            feedback.user = userData;
+            return feedback;
+          }
+        }))
+        setFeedbacks(feedbacks);
       } catch (error) {
         console.error(error);
       }
@@ -95,6 +121,20 @@ function VacancyDetailPage() {
             <a href="Chat/" className="btn btn-primary">Открыть Чат</a>
           </div>
         ))}
+      </div>
+      <div className="d-flex flex-column align-items-center flex-wrap">
+        <h1 className="ms-3 me-3">Отзывы</h1>
+        { feedbacks!==null && feedbacks.map((feedback) => (
+          <div key={feedback.id} className="mb-4 mt-2 p-3 border-primary border rounded" style={{ width: "30%", margin: "10px", boxShadow: "5px 10px 8px rgba(0, 0, 1, .3)" }}>
+            <p>Отзыв от: {feedback.user.username}</p>
+            <p>Сообщение: {feedback.message}</p>
+          </div>
+        ))}
+        <form className="mb-4 mt-2 p-3 border-primary border rounded" style={{ width: "30%", margin: "10px", boxShadow: "5px 10px 8px rgba(0, 0, 1, .3)" }}>
+          <p>Сообщение</p>
+          <textarea className="form-control" rows="3" onChange={(e) => setMessage(e.target.value)}></textarea>
+          <button className="btn btn-primary mt-3" onClick={(e) => buttonClick(e)} >Отправить</button>
+        </form>
       </div>
     </div>
   );

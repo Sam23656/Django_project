@@ -20,22 +20,6 @@ class Resume(models.Model):
         return f"{self.creator.username} - {self.id}"
 
 
-class FavoriteLanguage(models.Model):
-    creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    languages = models.ForeignKey(Language, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.creator.username} - {self.languages}"
-
-
-class FavoriteTag(models.Model):
-    creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.creator.username} - {self.tag}"
-
-
 class JobApplication(models.Model):
     vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE)
     creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE)

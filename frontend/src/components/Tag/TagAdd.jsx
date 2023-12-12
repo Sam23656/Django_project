@@ -16,8 +16,8 @@ function AddTagPage() {
       );
       navigate('/Admin?location=Tags'); 
     } catch (error) {
-      console.error('Error creating language:', error);
-      alert('Error creating language. Please try again.');
+      console.error('Error creating tag:', error);
+      alert('Error creating tag. Please try again.');
     }
   };
 
