@@ -27,6 +27,10 @@ import Header from './components/Start_Page/Header';
 import AddTagPage from './components/Tag/TagAdd';
 import TagDeletePage from './components/Tag/TagDelete';
 import TagUpdatePage from './components/Tag/TagUpdate';
+import MessageDetailPage from './components/Chat/MessageDetail';
+import MessageUpdatePage from './components/Chat/MessageUpdate';
+import MessageDeletePage from './components/Chat/MessageDelete';
+import AddMessagePage from './components/Chat/AddMessage';
 
 function App() {
   cleanExpiresCookies()
@@ -68,6 +72,11 @@ function App() {
       <Route path='/Admin/TagAdd' element={<AddTagPage />} />
       <Route path='/Admin/TagDelete' element={<TagDeletePage />} />
       <Route path='/Admin/TagUpdate' element={<TagUpdatePage />} />
+
+      <Route path='/Admin/MessageDetail' element={<MessageDetailPage />} />
+      <Route path='/Admin/MessageUpdate' element={<MessageUpdatePage />} />
+      <Route path='/Admin/MessageDelete' element={<MessageDeletePage />} />
+      <Route path='/Admin/MessageAdd' element={<AddMessagePage />} />
 
     </Routes>
     </Router>

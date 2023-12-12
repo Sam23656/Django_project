@@ -6,6 +6,7 @@ import AllVacanciesPage from "../Vacancy/AllVacancies";
 import AllResumePage from "../Resume/AllResume";
 import AllLanguagesPage from '../Language/AllLanguages';
 import AllTagsPage from '../Tag/AllTags';
+import AllMessagesPage from '../Chat/AllMessages';
 
 function AdminPanelPage() {
   const [data, setData] = useState(null);
@@ -74,6 +75,10 @@ function AdminPanelPage() {
         ) : (locationValue == "Tags") ? (
           <div>
             <AllTagsPage />
+          </div>
+        ) : (locationValue == "Messages") ? (
+          <div>
+            <AllMessagesPage />
           </div>
         ) : (<></>)}
       </div>
