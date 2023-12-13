@@ -6,7 +6,7 @@ function Header() {
     return (
         <nav  className="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
         <div className="container-fluid ">
-          <a className="navbar-brand mb-3" href="/">Logo</a>
+          <a className="navbar-brand mb-3" href="/">JobPulse</a>
           <div className="collapse navbar-collapse">
           <ul className="d-flex flex-row navbar-nav me-auto">
           <li className="nav-item">
@@ -31,6 +31,11 @@ function Header() {
                   <li className="nav-item">
                     <a className="nav-link active mb-3" aria-current="page" href="/AddResume">
                       Добавить резюме
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link active mb-3" aria-current="page" href="/Chat">
+                      Чат
                     </a>
                   </li>
                 </>
@@ -60,6 +65,11 @@ function Header() {
                   <li className="nav-item">
                     <a className="nav-link active mb-3" aria-current="page" href="/YourVacancy">
                       Ваши вакансии
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link active mb-3" aria-current="page" href="/Chat">
+                      Чат
                     </a>
                   </li>
                 </>) : (

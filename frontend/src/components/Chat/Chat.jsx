@@ -151,7 +151,7 @@ function ChatPage() {
         >
           {selectedChat && (
             <>
-              <div className='mb-3'>
+              <div className='mb-3 '>
                 {messages.map((message, index) => (
                   <div key={index}>
                   <strong>{sendersData[message.sender] ? sendersData[message.sender].username : message.username}:</strong> {message.message}

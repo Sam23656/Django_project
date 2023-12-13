@@ -63,6 +63,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     birthday = models.DateField(null=True, blank=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     role = models.CharField(
         max_length=20,
         choices=[
@@ -87,3 +88,6 @@ class Feedback(models.Model):
     object = models.ForeignKey('employee.Vacancy', on_delete=models.CASCADE)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username}: {self.message}"
