@@ -34,6 +34,9 @@ import AddMessagePage from './components/Chat/AddMessage';
 import FeedbackDeletePage from './components/Feedback/FeedbackDelete';
 import FeedbackUpdatePage from './components/Feedback/FeedbackUpdate';
 import AddFeedbackPage from './components/Feedback/AddFeedback';
+import AddFrameworkPage from './components/Framework/FrameworkAdd';
+import FrameworkDeletePage from './components/Framework/FrameworkDelete';
+import FrameworkUpdatePage from './components/Framework/FrameworkUpdate';
 
 function App() {
   cleanExpiresCookies()
@@ -84,6 +87,10 @@ function App() {
       <Route path='/Admin/FeedbackDelete' element={<FeedbackDeletePage />} />
       <Route path='/Admin/FeedbackUpdate' element={<FeedbackUpdatePage />} />
       <Route path='/Admin/FeedbackAdd' element={<AddFeedbackPage />} />
+
+      <Route path='/Admin/FrameworkAdd' element={<AddFrameworkPage />} />
+      <Route path='/Admin/FrameworkDelete' element={<FrameworkDeletePage />} />
+      <Route path='/Admin/FrameworkUpdate' element={<FrameworkUpdatePage />} />
 
     </Routes>
     </Router>

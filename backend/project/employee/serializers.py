@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from .models import Vacancy, Language, Tag
+from .models import Vacancy, Language, Tag, Framework
 
 
 class VacancySerializer(ModelSerializer):
@@ -18,4 +18,10 @@ class LanguageSerializer(ModelSerializer):
 class TagSerializer(ModelSerializer):
     class Meta:
         model = Tag
+        fields = '__all__'
+
+
+class FrameworkSerializer(ModelSerializer):
+    class Meta:
+        model = Framework
         fields = '__all__'

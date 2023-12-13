@@ -61,7 +61,7 @@ function StartPage() {
   return (
     <div className="mt-3 bg-secondary-subtle form-control ms-2 " style={{ height: "100%", width: "99%" }}>
       <div className="d-flex flex-column align-items-center bg-secondary-subtle">
-        <div className="mt-5 bg-secondary-subtle border-primary form-control ms-3" style={{ width: "30%" }}>
+        <div className="mt-5 bg-secondary-subtle border-primary form-control ms-3" style={{ width: "100%" }}>
           <h1>Работа найдётся для каждого</h1>
           <p>Найти работу и зарабатывать деньги</p>
           <p>
@@ -96,9 +96,8 @@ function StartPage() {
             <h2>Последние Вакансии:</h2>
             <div className="d-flex flex-wrap justify-content-center ">
             {vacancies.slice(-10).reverse().map((vacancy) => (
-              <div className="m-3 form-control" style={{ width: "250px", height: "100px" }} key={vacancy.id}>
+              <div className="m-3 form-control" style={{ width: "250px", maxheight: "100px" }} key={vacancy.id}>
                 <h3>Название: {vacancy.title}</h3>
-                <p>Описание: {vacancy.description}</p>
               </div>
             ))}
             </div>

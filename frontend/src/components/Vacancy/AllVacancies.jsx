@@ -6,13 +6,17 @@ import GetLanguage from '../../api/Language/GetLanguage';
 import GetTag from '../../api/Tag/GetTag';
 import GetAllLanguages from '../../api/Language/GetAllLanguages';
 import GetAllTags from '../../api/Tag/GetAllTags';
+import GetAllFrameworks from '../../api/Framework/GetAllFrameworks';
+import GetFramework from '../../api/Framework/GetFramework';
 
 function AllVacanciesPage() {
   const [data, setData] = useState(null);
   const [allTags, setAllTags] = useState([]);
   const [allLanguages, setAllLanguages] = useState([]);
+  const [allFrameworks, setAllFrameworks] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedTag, setSelectedTag] = useState(''); 
+  const [selectedFramework, setSelectedFramework] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,12 +28,20 @@ function AllVacanciesPage() {
         });
         const resolvedLanguages = await Promise.all(languagePromises);
         userData[i].languages = resolvedLanguages;
+
         const tagPromises = userData[i].tags.map(async (tag) => {
           const data = await GetTag(tag);
           return data;
         })
         const resolvedTags = await Promise.all(tagPromises);
         userData[i].tags = resolvedTags;
+
+        const frameworkPromises = userData[i].frameworks.map(async (framework) => {
+          const data = await GetFramework(framework);
+          return data;
+        })
+        const resolvedFrameworks = await Promise.all(frameworkPromises);
+        userData[i].frameworks = resolvedFrameworks;
         setData(userData);
       }
 
@@ -38,6 +50,9 @@ function AllVacanciesPage() {
 
       const allTagsData = await GetAllTags();
       setAllTags(allTagsData);
+
+      const allFrameworksData = await GetAllFrameworks();
+      setAllFrameworks(allFrameworksData);
     };
 
     fetchData().catch(console.error);
@@ -50,7 +65,8 @@ function AllVacanciesPage() {
   const filteredData = data.filter((resume) => {
     const hasSelectedLanguage = !selectedLanguage || resume.languages.some((language) => language.title === selectedLanguage);
     const hasSelectedTag = !selectedTag || resume.tags.some((tag) => tag.title === selectedTag);
-    return hasSelectedLanguage && hasSelectedTag;
+    const hasSelectedFramework = !selectedFramework || resume.frameworks.some((framework) => framework.title === selectedFramework);
+    return hasSelectedLanguage && hasSelectedTag && hasSelectedFramework;
   });
 
   return (
@@ -82,6 +98,20 @@ function AllVacanciesPage() {
               <option value="">Все</option>
               {allTags.map((tag) => (
                 <option key={tag.id} value={tag.title}>{tag.title}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="frameworkFilter" className="form-label">Выберите фреймворк:</label>
+            <select
+              id="frameworkFilter"
+              className="form-select"
+              value={selectedFramework}
+              onChange={(e) => setSelectedFramework(e.target.value)}
+            >
+              <option value="">Все</option>
+              {allFrameworks.map((framework) => (
+                <option key={framework.id} value={framework.title}>{framework.title}</option>
               ))}
             </select>
           </div>
