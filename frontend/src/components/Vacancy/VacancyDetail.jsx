@@ -132,7 +132,9 @@ function VacancyDetailPage() {
                   <a className='btn btn-primary' href={`/VacancyUpdate/?id=${data.id}`}>Редактировать вакансию</a>
                   <a className='ms-2 btn btn-primary' href={`/VacancyDelete/?id=${data.id}`}>Удалить вакансию</a>
                 </>
-              ) : (<></>)}</>
+              ) : (Cookies.get("user_role")) == "moderator" ? (<>
+                <a className='ms-2 btn btn-primary' href={`/VacancyDelete/?id=${data.id}`}>Удалить вакансию</a>
+              </>) : (<></>)}</>
               <>{Cookies.get('user_role') == 'job_seeker' || Cookies.get('admin_status') === 'true' ? <a className='ms-2 btn btn-primary' href={`/CreateJobApplication/?id=${data.id}`}>Подать заявку</a> : <></> }</>
             </div>
         </div>

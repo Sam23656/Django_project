@@ -62,7 +62,9 @@ function ResumeDetailPage() {
                   <a className='btn btn-primary' href={`/ResumeUpdate/?id=${data.id}`}>Редактировать резюме</a>
                   <a className='ms-2 btn btn-primary' href={`/ResumeDelete/?id=${data.id}`}>Удалить резюме</a>
                 </>
-              ) : (<></>)}</>
+              ) : (Cookies.get("user_role")) == "moderator" ? (<>
+                <a className='ms-2 btn btn-primary' href={`/VacancyDelete/?id=${data.id}`}>Удалить вакансию</a>
+              </>) : (<></>)}</>
             </div>
         </div>
       </div>
