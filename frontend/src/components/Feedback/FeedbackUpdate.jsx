@@ -40,7 +40,7 @@ function FeedbackUpdatePage() {
     const hasAccessToken = Cookies.get("access_token") !== undefined;
     
     if (!isAdmin && !hasAccessToken) {
-      navigate(isModerator ? '/Admin?location=Messages' : '/');
+      navigate(isModerator ? '/Admin?location=Feedback' : '/');
     }
 
     const fetchData = async () => {
@@ -62,7 +62,7 @@ function FeedbackUpdatePage() {
   return (
     <div>
       <div className="d-flex flex-column align-items-center flex-wrap">
-        <h1 className="ms-3 me-3">Обновить сообщение</h1>
+        <h1 className="ms-3 me-3">Обновить отзыв</h1>
         <div style={{ marginTop: "140px", width: "100%" }} className="d-flex flex-wrap justify-content-center border-primary rounded-3">
           <form key={data.id} className="mb-4 mt-2 p-3 form-control border-primary border rounded" style={{ width: "30%", margin: "10px", boxShadow: "5px 10px 8px rgba(0, 0, 1, .3)" }}>
             <p>Сообщение:</p>

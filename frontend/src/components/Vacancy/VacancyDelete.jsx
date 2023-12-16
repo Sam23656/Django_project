@@ -17,7 +17,7 @@ function VacancyDeletePage() {
     e.preventDefault();
     if (Cookies.get('id') == data.creator || Cookies.get('admin_status') == "true") {
         await DeleteVacancy(id, Cookies.get("access_token") );
-        navigate('/AllVacancies/');
+        navigate('/AllVacancies');
     }
     else {
         alert('Вы не можете удалить эту вакансию');

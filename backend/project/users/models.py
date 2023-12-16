@@ -7,7 +7,8 @@ from django.contrib.auth.hashers import make_password
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, username, full_name=None, birthday=None, password=None, role='job_seeker'):
+    def create_user(self, email, username, full_name=None, birthday=None, password=None, role='job_seeker',
+                    company_name=None, industry=None):
         if not email:
             raise ValueError('Users must have an email address')
         if not username:
@@ -22,7 +23,9 @@ class CustomUserManager(BaseUserManager):
             password=make_password(password),
             full_name=full_name,
             birthday=birthday,
-            role=role
+            role=role,
+            company_name=company_name,
+            industry=industry
         )
         user.save(using=self._db)
         return user
@@ -50,7 +53,6 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-# Create your models here.
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     username_validator = UnicodeUsernameValidator()
     username = models.CharField(
@@ -64,6 +66,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    company_name = models.CharField(max_length=255, null=True, blank=True, default='')
+    industry = models.CharField(max_length=100, null=True, blank=True, default='')
     role = models.CharField(
         max_length=20,
         choices=[

@@ -9,6 +9,8 @@ function Register() {
   const [fullName, setFullName] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [userType, setUserType] = useState('job_seeker');
+  const [company_name, setCompanyName] = useState('');
+  const [industry, setIndustry] = useState('');
   const today = new Date();
 
   const navigate = useNavigate();
@@ -17,12 +19,12 @@ function Register() {
     e.preventDefault();
 
     
-    if (!username || !email || !password || !fullName) {
+    if (!username || !email || !password || !fullName || !dateOfBirth ) {
       alert('Please fill in all fields.');
       return;
     }
 
-    await register_account(username, email, password, fullName, userType, dateOfBirth);
+    await register_account(username, email, password, fullName, userType, dateOfBirth, company_name, industry);
     navigate('/');
   }
 
@@ -96,10 +98,42 @@ function Register() {
             onChange={() => handleCheckboxChange('employer')}
           />
           <label className="btn btn-outline-primary" htmlFor="btnradio2">Работодатель</label>
+          <input
+            type="radio"
+            className="btn-check"
+            name="btnradio"
+            id="btnradio3"
+            autoComplete="off"
+            checked={userType === 'moderator'}
+            onChange={() => handleCheckboxChange('moderator')}
+          />
+          <label className="btn btn-outline-primary" htmlFor="btnradio3">Модератор</label>
         </div>
         <br />
         <label>Дата рождения:</label>
         <input type="date" className="form-control" style={{ width: "75%" }} name="dateOfBirth" min="1900-01-01" max={today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2)} value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
+        {userType === 'employer' && (
+          <div>
+            <label>Название компании:</label>
+            <input
+              className="form-control"
+              onChange={(e) => setCompanyName(e.target.value)}
+              placeholder="Название компании"
+              type="text"
+              name="company_name"
+              required
+            />
+            <label>Промышленность:</label>
+            <input
+              className="form-control"
+              onChange={(e) => setIndustry(e.target.value)}
+              placeholder="Промышленность"
+              type="text"
+              name="industry"
+              required
+            />
+          </div>
+        )}
         <button onClick={(e) => buttonClick(e)} className="btn btn-primary mt-2">Зарегистрироваться</button>
       </form>
     </div>

@@ -36,13 +36,14 @@ function VacancyDetailPage() {
     )
     window.location.reload();
   }
-  const buttonClick2 = async (e, id) => {
+  const buttonClick2 = async (e, userId) => {
     e.preventDefault();
     const filteredChats = chats.filter(chat => chat.first_user == Cookies.get("id") || chat.second_user == id);
     if (filteredChats.length < 1) {
       await CreateChat(
         Cookies.get("access_token"),
         Cookies.get("id"),
+        userId,
         id
       )
     }
@@ -163,6 +164,7 @@ function VacancyDetailPage() {
       
       <div className="d-flex flex-column align-items-center flex-wrap">
         <h1 className="ms-3 me-3">Отзывы</h1>
+        
         {feedbacks !== null && feedbacks.map((feedback) => (
             feedback && (
               <div key={feedback.id} className="mb-4 mt-2 p-3 border-primary border rounded" style={{ width: "30%", margin: "10px", boxShadow: "5px 10px 8px rgba(0, 0, 1, .3)" }}>
@@ -171,11 +173,17 @@ function VacancyDetailPage() {
               </div>
             )
         ))}
+
+        {Cookies.get('access_token') ? (
+        <>
         <form className="mb-4 mt-2 p-3 border-primary border rounded" style={{ width: "30%", margin: "10px", boxShadow: "5px 10px 8px rgba(0, 0, 1, .3)" }}>
           <p>Сообщение</p>
           <textarea className="form-control" rows="3" onChange={(e) => setMessage(e.target.value)}></textarea>
           <button className="btn btn-primary mt-3" onClick={(e) => buttonClick(e)} >Отправить</button>
         </form>
+        </>
+        ) : (<></>)
+        }
       </div>
     </div>
   );

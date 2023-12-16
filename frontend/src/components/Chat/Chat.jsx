@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
 import GetChats from '../../api/Chat/GetChats';
 import Cookies from 'js-cookie';
 import get_user_data from '../../api/Auth/get_user_data';
 import useWebSocket from '../../websocket/UseWebsocket';
 import GetChatMessages from '../../api/Chat/GetChatMessages';
+import GetVacncyDetail from '../../api/Vacancy/GetVacancyDetail';
 
 function ChatPage() {
   const [chats, setChats] = useState(null);
@@ -11,6 +13,7 @@ function ChatPage() {
   const [selectedChatId, setSelectedChatId] = useState(null);
   const [messageInput, setMessageInput] = useState('');
   const [initialMessages, setInitialMessages] = useState([]);
+  const navigate = useNavigate();
   const { socket, messages, sendMessage } = useWebSocket(
     selectedChat,
     initialMessages
@@ -21,12 +24,11 @@ function ChatPage() {
       setMessageInput('');
     }
   };
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
         let chats = await GetChats();
-        chats = chats.filter(
+        chats = chats.results.filter(
           (chat) =>
             chat.first_user == Cookies.get('id') ||
             chat.second_user == Cookies.get('id')
@@ -36,7 +38,8 @@ function ChatPage() {
           chats.map(async (chat) => {
             const firstUserData = await get_user_data(chat.first_user);
             const secondUserData = await get_user_data(chat.second_user);
-
+            const vacancy = await GetVacncyDetail(chat.vacancy);
+            chat.vacancy = vacancy;
             chat.first_user = firstUserData;
             chat.second_user = secondUserData;
             return chat;
@@ -127,6 +130,7 @@ function ChatPage() {
                 boxShadow: '5px 10px 8px rgba(0, 0, 1, .3)',
               }}
               onClick={() =>{
+                navigate(`/Chat?chatId=${chat.id}`)
                 setSelectedChat(
                   `${chat.first_user.id}${chat.second_user.id}`
                 )
@@ -134,9 +138,11 @@ function ChatPage() {
               }
               }
             >
+              
               <p className='mt-3'>
                 {chat.second_user && chat.second_user.username}
               </p>
+              <p>{chat.vacancy.title}</p>
             </div>
           ))}
         </div>

@@ -50,7 +50,7 @@ function AddMessagePage() {
   return (
     <div>
       <div className="d-flex flex-column align-items-center flex-wrap">
-        <h1 className="ms-3 me-3">Создать язык</h1>
+        <h1 className="ms-3 me-3">Создать сообщение</h1>
         <div
           style={{ marginTop: '140px', width: '100%' }}
           className="d-flex flex-wrap justify-content-center border-primary rounded-3"

@@ -26,7 +26,7 @@ function TagUpdatePage() {
     }
       
     } else {
-      alert('Вы не можете редактировать этот язык');
+      alert('Вы не можете редактировать этот тег');
     }
   };
   
@@ -36,7 +36,7 @@ function TagUpdatePage() {
     const hasAccessToken = Cookies.get("access_token") !== undefined;
     
     if (!isAdmin && !hasAccessToken) {
-      navigate(isModerator ? '/Admin?location=Languages' : '/');
+      navigate(isModerator ? '/Admin?location=Tags' : '/');
     }
 
     const fetchData = async () => {

@@ -5,7 +5,9 @@ from channels.db import database_sync_to_async
 
 from users.models import CustomUser
 from .models import Chat, Message
+
 last_message = None
+
 
 class ChatConsumer(AsyncWebsocketConsumer):
     def __init__(self, *args, **kwargs):
@@ -20,31 +22,34 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
         self.room_group_name = f"chat_{self.room_name}"
+
         if self.scope["user"].is_anonymous:
             await self.close()
-        else:
-            filtered_chat = await self.get_filtered_chats()
-            if filtered_chat:
-                self.chat = filtered_chat[0]
-                self.user = await self.get_user_from_id(self.scope["user"].id)
-                second_user = str(self.chat.get_chat_id()).split(f'{self.user.id}')
-                second_user = await self.filter_second_user(second_user)
-                self.second_user = await self.get_user_from_id(second_user[0])
-            else:
-                self.chat = await self.chat_create(
-                    await self.get_user_from_id(self.scope["user"].id),
-                    await self.get_user_from_id(self.scope["path"].split("/")[-2][1:]),
-                )
-                self.user = await self.get_user_from_id(self.scope["user"].id)
-                self.second_user = await self.get_user_from_id(self.scope["path"].split("/")[-2][1:])
 
-            if self.chat:
-                pass
-            else:
+        self.user = await self.get_user_from_id(self.scope["user"].id)
+
+        filtered_chat = await self.get_filtered_chats()
+
+        if filtered_chat:
+            self.chat = filtered_chat[0]
+            self.second_user = (
+                self.chat.first_user
+                if self.user != self.chat.first_user
+                else self.chat.second_user
+            )
+        else:
+            self.second_user_id = self.scope["path"].split("/")[-2][1:]
+            self.second_user = await self.get_user_from_id(self.second_user_id)
+
+            self.chat = await self.chat_create(self.user, self.second_user)
+
+            if not self.chat:
                 await self.close()
 
-        self.room_name = self.chat.get_chat_id()
-        self.room_group_name = f"chat_{self.room_name}"
+        print(f"User: {self.user}")
+        print(f"Second User: {self.second_user}")
+        print(f"Chat ID: {self.room_name}")
+
         await self.channel_layer.group_add(
             self.room_group_name, self.channel_name
         )
@@ -94,11 +99,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def chat_message(self, event):
         message = event["message"]
-        print(event)
-        if event["sender"] != "user":
+        sender = await self.get_user_from_id(event["sender"])
+        if event["sender"] == 'server':
             return
         else:
-            message = await self.message_create_async(self.user, self.second_user, message)
+            message = await self.message_create_async(sender, self.second_user, message)
 
             await self.send(
                 text_data=json.dumps({
@@ -115,5 +120,5 @@ class ChatConsumer(AsyncWebsocketConsumer):
         sender = text_data_json["sender"]
 
         await self.channel_layer.group_send(
-            self.room_group_name, {"type": "chat.message", "sender": f"{sender}", "message": message}
+            self.room_group_name, {"type": "chat.message", "sender": sender, "message": message}
         )

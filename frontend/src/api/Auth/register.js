@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-async function register_account(username, email, password, fullName, userType, dateOfBirth) {
+async function register_account(username, email, password, fullName, userType, dateOfBirth, company_name, industry) {
     try {
         const response = await axios.post('http://127.0.0.1:8000/api/User/', {
             email: email,
@@ -9,6 +9,8 @@ async function register_account(username, email, password, fullName, userType, d
             full_name: fullName,
             role: userType,
             birthday: dateOfBirth,
+            company_name: company_name,
+            industry: industry
         });
         return response.data
     } catch (error) {

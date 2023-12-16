@@ -19,68 +19,115 @@ function AllResumePage() {
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedTag, setSelectedTag] = useState(''); 
   const [selectedFramework, setSelectedFramework] = useState('');
+  const searchParams = new URLSearchParams(location.search);
+  const idString = searchParams.get('page');
+  const [id, setId] = useState(JSON.parse(decodeURIComponent(idString)));
+  const [pages, setPages] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
-      const userData = await GetAllResume();
-      for (let elem of userData) {
+      if (id === null) {
+        await setId(1);
+      }
+      let userData
+      let usersData
+      if (selectedFramework || selectedLanguage || selectedTag) {
+         userData = await GetAllResume();
+         const userPromises = userData.map(async (resume) => {
+          const data = await get_user_data(resume.creator, Cookies.get("access_token"));
+          return data;
+        });
+        usersData = await Promise.all(userPromises);
+    
+        for (let elem of userData) {
+          const languagePromises = elem.languages.map(async (language) => {
+            const data = await GetLanguage(language);
+            return data;
+          });
+          const resolvedLanguages = await Promise.all(languagePromises);
+          elem.languages = resolvedLanguages;
+    
+          const tagPromises = elem.skills.map(async (tag) => {
+            const data = await GetTag(tag);
+            return data;
+          });
+          const resolvedTags = await Promise.all(tagPromises);
+          elem.tags = resolvedTags;
+    
+          const frameworkPromises = elem.frameworks.map(async (framework) => {
+            const data = await GetFramework(framework);
+            return data;
+          });
+          const resolvedFrameworks = await Promise.all(frameworkPromises);
+          elem.frameworks = resolvedFrameworks;
+        }
+      }
+      else{
+       userData = await GetAllResume(true, id);
+       const userPromises = userData.results.map(async (resume) => {
+        const data = await get_user_data(resume.creator, Cookies.get("access_token"));
+        return data;
+      });
+      usersData = await Promise.all(userPromises);
+  
+      for (let elem of userData.results) {
         const languagePromises = elem.languages.map(async (language) => {
           const data = await GetLanguage(language);
           return data;
         });
         const resolvedLanguages = await Promise.all(languagePromises);
         elem.languages = resolvedLanguages;
-
+  
         const tagPromises = elem.skills.map(async (tag) => {
           const data = await GetTag(tag);
           return data;
-        })
+        });
         const resolvedTags = await Promise.all(tagPromises);
         elem.tags = resolvedTags;
-
+  
         const frameworkPromises = elem.frameworks.map(async (framework) => {
           const data = await GetFramework(framework);
           return data;
-        })
+        });
         const resolvedFrameworks = await Promise.all(frameworkPromises);
         elem.frameworks = resolvedFrameworks;
-        
       }
+      }
+
+  
       setData(userData);
-
-      const userPromises = userData.map(async (resume) => {
-        const data = await get_user_data(resume.creator, Cookies.get("access_token"));
-        return data;
-      });
-
-
-      const usersData = await Promise.all(userPromises);
       setUsers(usersData);
-
+      setPages(Array.from({ length: Math.ceil(userData.count / 3) }, (_, index) => index + 1));
+  
       const allLanguagesData = await GetAllLanguages();
       setAllLanguages(allLanguagesData);
-
+  
       const allTagsData = await GetAllTags();
       setAllTags(allTagsData);
-
+  
       const allFrameworksData = await GetAllFrameworks();
       setAllFrameworks(allFrameworksData);
-      
     };
-
+  
     fetchData().catch(console.error);
-  }, []);
+  }, [selectedFramework, selectedLanguage, selectedTag]);
 
-
+let filteredData = data;
   if (data === null || users === null) {
     return <div>Loading...</div>;
   }
-  const filteredData = data.filter((resume) => {
+  (data.results) ?
+   (filteredData = data.results.filter((resume) => {
     const hasSelectedLanguage = !selectedLanguage || resume.languages.some((language) => language.title === selectedLanguage);
     const hasSelectedTag = !selectedTag || resume.tags.some((tag) => tag.title === selectedTag);
     const hasSelectedFramework = !selectedFramework || resume.frameworks.some((framework) => framework.title === selectedFramework);
     return hasSelectedLanguage && hasSelectedTag && hasSelectedFramework;
-  });
+  })): (filteredData = data.filter((resume) => {
+    const hasSelectedLanguage = !selectedLanguage || resume.languages.some((language) => language.title === selectedLanguage);
+    const hasSelectedTag = !selectedTag || resume.tags.some((tag) => tag.title === selectedTag);
+    const hasSelectedFramework = !selectedFramework || resume.frameworks.some((framework) => framework.title === selectedFramework);
+    return hasSelectedLanguage && hasSelectedTag && hasSelectedFramework;
+  }))
 
   return (
     <div>
@@ -146,6 +193,25 @@ function AllResumePage() {
               </div>
             ))}
           </div>
+          {pages.length > 1 && (
+            <nav aria-label="..." className=''>
+              <ul className="pagination">
+                <li className={`page-item ${id === 1 ? 'disabled' : ''}`}>
+                  <a className="page-link" href={`AllResume?page=${id - 1}`}>Previous</a>
+                </li>
+                {pages.map((page) => (
+                  <li key={page} className={`page-item ${page === id ? 'active' : ''}`}>
+                    <a className="page-link" href={`AllResume?page=${page}`}>
+                      {page}
+                    </a>
+                  </li>
+                ))}
+                <li className={`page-item ${id === pages.length ? 'disabled' : ''}`}>
+                  <a className="page-link" href={`AllResume?page=${id + 1}`}>Next</a>
+                </li>
+              </ul>
+            </nav>
+          )}
         </div>
       </div>
     </div>

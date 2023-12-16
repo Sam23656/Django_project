@@ -8,7 +8,23 @@ async function getAllUsers(token) {
           },
         })
         ;
-    return response.data
+        let data = [response.data.results];
+        do {
+          if (response.data.next === null) {
+            break;
+          } else {
+            response = await axios.get(response.data.next, {
+              headers: {
+                Authorization: `TOKEN ${token}`,
+              },
+            });
+            data.push(response.data.results);
+          }
+        } while (true);
+  
+        
+        data = data.flat();
+        return data;
       } catch (error) {
         console.error('Axios Error:', error);
       }

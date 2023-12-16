@@ -67,11 +67,15 @@ function Header() {
                       Ваши вакансии
                     </a>
                   </li>
+                  {Cookies.get("user_role") === "admin" ? (
+                    <></>
+                  ) : (
                   <li className="nav-item">
                     <a className="nav-link active mb-3" aria-current="page" href="/Chat">
                       Чат
                     </a>
                   </li>
+                  )}
                 </>) : (
                 <>
                 </>)}

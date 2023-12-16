@@ -5,7 +5,7 @@ async function GetAllChat() {
         const response = await axios.get(`http://127.0.0.1:8000/api/Chat/Chat/`, {
         })
         ;
-    return response.data
+    return response.data.results
       } catch (error) {
         console.error('Axios Error:', error);
       }

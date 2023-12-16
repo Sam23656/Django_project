@@ -19,6 +19,7 @@ class Chat(models.Model):
     first_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='first_user')
     second_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='second_user')
     messages = models.ManyToManyField(Message, blank=True)
+    vacancy = models.ForeignKey('employee.Vacancy', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"{self.first_user.username}-{self.second_user.username}"

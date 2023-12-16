@@ -39,7 +39,7 @@ function useWebSocket(selectedChat, initialMessages) {
 
   const sendMessage = (message) => {
     if (socket && socket.readyState === WebSocket.OPEN) {
-      socket.send(JSON.stringify({ message: `${message}`, sender: "user" }));
+      socket.send(JSON.stringify({ message: `${message}`, sender: Cookies.get('id') }));
     }
   };
 

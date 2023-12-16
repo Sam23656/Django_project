@@ -40,11 +40,12 @@ class UserChangeForm(forms.ModelForm):
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
-    list_display = ('email', 'username', 'full_name', 'birthday', 'is_staff', 'is_superuser', 'role')
+    list_display = ('email', 'username', 'full_name', 'birthday', 'is_staff', 'is_superuser', 'role',
+                    'company_name', 'industry')
     list_filter = ('is_staff',)
     fieldsets = (
         (None, {'fields': ('email', 'username', 'full_name', 'password', 'role')}),
-        ('Personal info', {'fields': ('birthday',)}),
+        ('Personal info', {'fields': ('birthday', 'company_name', 'industry')}),
         ('Permissions', {'fields': ('is_staff', 'is_superuser', 'is_active')}),
     )
     add_fieldsets = (
@@ -52,9 +53,11 @@ class UserAdmin(BaseUserAdmin):
             'classes': ('wide',),
             'fields': (
                 'email', 'username', 'full_name', 'birthday', 'password1', 'password2', 'is_staff',
-                'is_superuser', 'is_active', 'role'),
+                'is_superuser', 'is_active', 'role'
+            ),
         }),
     )
+
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()
