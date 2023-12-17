@@ -180,6 +180,7 @@ function AllVacanciesPage() {
                 <p>Зарплата: {vacancy.salary}</p>
                 <p>Языки: {vacancy.languages.map((language) => language.title).join(', ')}</p>
                 <p>Теги: {vacancy.tags.map((tag) => tag.title).join(', ')}</p>
+                <p>Фреймворки: {vacancy.frameworks.map((framework) => framework.title).join(', ')}</p>
                 <p>Дата создания вакансии: {new Date(vacancy.created_at).toLocaleDateString()}</p>
                 <Link to={`/VacancyDetail?id=${vacancy.id}`} className="btn btn-primary">Подробнее</Link>
               </div>

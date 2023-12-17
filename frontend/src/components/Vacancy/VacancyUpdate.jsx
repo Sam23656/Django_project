@@ -8,6 +8,8 @@ import GetAllLanguages from '../../api/Language/GetAllLanguages';
 import GetLanguage from '../../api/Language/GetLanguage';
 import GetAllTags from '../../api/Tag/GetAllTags';
 import GetTag from '../../api/Tag/GetTag';
+import GetAllFrameworks from '../../api/Framework/GetAllFrameworks';
+import GetFramework from '../../api/Framework/GetFramework';
 
 function VacancyUpdatePage() {
   const [data, setData] = useState(null);
@@ -16,6 +18,8 @@ function VacancyUpdatePage() {
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const [allTags, setAllTags] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [allFrameworks, setAllFrameworks] = useState([]);
+  const [selectedFrameworks, setSelectedFrameworks] = useState([]);
   const searchParams = new URLSearchParams(location.search);
   const idString = searchParams.get('id');
   const id = JSON.parse(decodeURIComponent(idString));
@@ -24,6 +28,7 @@ function VacancyUpdatePage() {
   const [salary, setSalary] = useState('');
   const [filteredLanguages, setFilteredLanguages] = useState([]);
   const [filteredTags, setFilteredTags] = useState([]);
+  const [filteredFrameworks, setFilteredFrameworks] = useState([]);
   const navigate = useNavigate();
 
   const buttonClick = async (e) => {
@@ -38,11 +43,12 @@ function VacancyUpdatePage() {
         description,
         salary,
         selectedTags,
-        selectedLanguages
+        selectedLanguages,
+        selectedFrameworks
       );
       navigate(`/VacancyDetail/?id=${id}`);
     }catch (error) {
-      alert('Skill и Language не должны быть пустыми');
+      alert('Skill и Language и Framework не должны быть пустыми');
     }
       
     } else {
@@ -66,6 +72,14 @@ function VacancyUpdatePage() {
     setFilteredTags(filtered);
   }
 
+  const handleSearchFrameworks = (query) => {
+    const lowercaseQuery = query.toLowerCase();
+    const filtered = allFrameworks.filter((framework) =>
+    framework.title.toLowerCase().includes(lowercaseQuery)
+    );
+    setFilteredFrameworks(filtered);
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const userData = await GetVacancyDetail(id);
@@ -82,16 +96,24 @@ function VacancyUpdatePage() {
         const data = await GetTag(tag);
         return data;
       });
+
+      const frameworkPromises = userData.frameworks.map(async (framework) => {
+        const data = await GetFramework(framework);
+        return data;
+      })
   
       setAllLanguages(await GetAllLanguages());
+      setAllFrameworks(await GetAllFrameworks());
       setAllTags(await GetAllTags())
       const resolvedLanguages = await Promise.all(languagePromises);
       const initialSelectedLanguages = resolvedLanguages.map(language => language.id);
+      const resolvedFrameworks = await Promise.all(frameworkPromises);
       setSelectedLanguages(initialSelectedLanguages);
       const resolvedTags = await Promise.all(tagPromises);
       const initialSelectedTags = resolvedTags.map(tag => tag.id);
+      const initialSelectedFrameworks = resolvedFrameworks.map(framework => framework.id);
       setSelectedTags(initialSelectedTags);
-
+      setSelectedFrameworks(initialSelectedFrameworks);
       setTitle(userData.title);
       setDescription(userData.description);
       setSalary(userData.salary);
@@ -200,6 +222,52 @@ function VacancyUpdatePage() {
   </div>
 </div>
 
+<div className="modal fade" id="FrameworkModal" tabIndex="-1" aria-labelledby="FrameworkModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="FrameworkModalLabel">Теги</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="FrameworkForm" className="modal-body">
+        <div className="mb-3">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Поиск фреймворков"
+            onChange={(e) => handleSearchFrameworks(e.target.value)}
+          />
+        </div>
+        <div className='d-flex flex-wrap mt-2'>
+          {filteredFrameworks.map((framework, index) => (
+            <div key={index}>
+              <input
+                type="checkbox"
+                className="btn-check rounded-pill"
+                id={`frameworkCheckbox${index}`}
+                autoComplete="off"
+                checked={selectedFrameworks.includes(framework.id)}
+                onChange={() => {
+                  const updatedFrameworks = selectedFrameworks.includes(framework.id)
+                    ? selectedFrameworks.filter((id) => id !== framework.id)
+                    : [...selectedFrameworks, framework.id];
+                  setSelectedFrameworks(updatedFrameworks);
+                }}
+              />
+              <label className="ms-2 btn btn-outline-primary" htmlFor={`frameworkCheckbox${index}`}>
+                {framework.title}
+              </label>
+            </div>
+          ))}
+        </div>
+      </form>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-primary" data-bs-dismiss="modal" >Применить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
       <div className="d-flex flex-column align-items-center flex-wrap">
         <h1 className="ms-3 me-3">Обновить вакансию</h1>
         <div style={{ marginTop: "140px", width: "100%" }} className="d-flex flex-wrap justify-content-center border-primary rounded-3">
@@ -268,6 +336,36 @@ function VacancyUpdatePage() {
                 ))}
               </div>
             ) : null}
+
+            <p>Фреймворки:</p>
+            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#FrameworkModal">
+              Выбрать фреймворки
+            </button>
+            <br />
+            {selectedFrameworks.length > 0 ? (
+              <div className="btn-group mt-2" role="group" aria-label="Basic checkbox toggle button group">
+                {allFrameworks.map((framework, index) => (
+                  selectedFrameworks.includes(framework.id) ? (
+                    <div key={index}>
+                      <input
+                        type="checkbox"
+                        className="btn-check"
+                        id={`frameworkCheckbox${index}`}
+                        autoComplete="off"
+                        checked={true}
+                        onChange={() => {
+                          setSelectedFrameworks(selectedFrameworks.filter((id) => id !== framework.id));
+                        }}
+                      />
+                      <label className="ms-2 btn btn-outline-primary" htmlFor={`frameworkCheckbox${index}`}>
+                        {framework.title}
+                      </label>
+                    </div>
+                  ) : null
+                ))}
+              </div>
+            ) : null}
+
             <p>Описание:</p>
             <textarea type="text" className='form-control' name="description" onChange={(e) => setDescription(e.target.value)} value={description} />
             <p>Зарплата:</p>

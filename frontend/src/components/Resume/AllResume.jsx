@@ -187,6 +187,7 @@ let filteredData = data;
                 <p>Электронная почта: {users[index].email}</p>
                 <p>Языки программирования: {resume.languages.map((language) => language.title).join(', ')}</p>
                 <p>Теги: {resume.tags.map((tag) => tag.title).join(', ')}</p>
+                <p>Фреймворки: {resume.frameworks.map((framework) => framework.title).join(', ')}</p>
                 <p>Опыт работы: {resume.experience}</p>
                 <p>Дополнительная информация: {resume.additional_info}</p>
                 <Link to={`/ResumeDetail?id=${resume.id}`} className="btn btn-primary">Подробнее</Link>

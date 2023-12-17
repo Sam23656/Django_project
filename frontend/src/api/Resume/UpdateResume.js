@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-async function UpdateResume(user_id, id, token, skills, languages, education, experience, social_links, additional_info) {
+async function UpdateResume(user_id, id, token, skills, languages, education, experience, social_links, additional_info, frameworks) {
     try {
         const response = await axios({
             method: 'put',
@@ -15,7 +15,8 @@ async function UpdateResume(user_id, id, token, skills, languages, education, ex
                 education: education,
                 experience: experience,
                 social_links: social_links,
-                additional_info: additional_info
+                additional_info: additional_info,
+                frameworks: frameworks
             }
         })
 

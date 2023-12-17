@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-async function CreateResume(user_id, token, skills, languages, education, experience, social_links, additional_info) {
+async function CreateResume(user_id, token, skills, languages, education, experience, social_links, additional_info, frameworks) {
     try {
         const response = await axios({
             method: 'post',
@@ -15,7 +15,8 @@ async function CreateResume(user_id, token, skills, languages, education, experi
                 education: education,
                 experience: experience,
                 social_links: social_links,
-                additional_info: additional_info
+                additional_info: additional_info,
+                frameworks: frameworks
             }
         })
 

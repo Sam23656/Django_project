@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-async function CreateVacancy(user_id, token, title, description, salary, tags, languages) {
+async function CreateVacancy(user_id, token, title, description, salary, tags, languages, frameworks) {
     try {
         const response = await axios({
             method: 'post',
@@ -14,7 +14,8 @@ async function CreateVacancy(user_id, token, title, description, salary, tags, l
                 description: description,
                 salary: salary,
                 tags: tags,
-                languages: languages
+                languages: languages,
+                frameworks: frameworks
             }
         })
 

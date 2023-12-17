@@ -10,6 +10,7 @@ import GetAllFeedbacks from '../../api/Feedback/GetAllFeedbacks';
 import CreateFeedback from '../../api/Feedback/CreateFeedback';
 import GetAllChats from '../../api/Chat/GetAllChat';
 import CreateChat from '../../api/Chat/CreateChat';
+import GetFramework from '../../api/Framework/GetFramework';
 
 function VacancyDetailPage() {
   const [data, setData] = useState(null);
@@ -17,6 +18,7 @@ function VacancyDetailPage() {
   const [languages, setLanguages] = useState([]);
   const [tags, setTags] = useState([]);
   const [feedbacks, setFeedbacks] = useState(null);
+  const [frameworks, setFrameworks] = useState([]);
   const [jobApplications, setJobApplications] = useState([]);
   const [message, setMessage] = useState('');
   const [chats, setChats] = useState(null);
@@ -64,13 +66,18 @@ function VacancyDetailPage() {
           const data = await GetTag(tag);
           return data;
         });
+        const frameworkPromises = userData.frameworks.map(async (tag) => {
+          const data = await GetFramework(tag);
+          return data;
+      })
   
         const resolvedLanguages = await Promise.all(languagePromises);
         const resolvedTags = await Promise.all(tagPromises);
+        const resolvedFrameworks = await Promise.all(frameworkPromises);
   
         setLanguages(resolvedLanguages);
         setTags(resolvedTags);
-  
+        setFrameworks(resolvedFrameworks);
         const creatorData = await get_user_data(userData.creator);
         setUser(creatorData);
   
@@ -127,6 +134,7 @@ function VacancyDetailPage() {
               <p>Зарплата: {data.salary}</p>
               <p>Языки: {languages.map((language) => language.title).join(', ')}</p>
               <p>Теги: {tags.map((tag) => tag.title).join(', ')}</p>
+              <p>Фреймворки: {frameworks.map((framework) => framework.title).join(', ')}</p>
               <p>Дата создания вакансии: {new Date(data.created_at).toLocaleDateString()}</p>
               <>{user.id == Cookies.get("id") || Cookies.get("admin_status") === 'true'  ? (
                 <>

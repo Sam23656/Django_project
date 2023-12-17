@@ -4,12 +4,14 @@ import GetResumeDetail from '../../api/Resume/GetResumeDetail';
 import get_user_data from '../../api/Auth/get_user_data';
 import GetLanguage from '../../api/Language/GetLanguage';
 import GetTag from '../../api/Tag/GetTag';
+import GetFramework from '../../api/Framework/GetFramework';
 
 function ResumeDetailPage() {
   const [data, setData] = useState(null);
   const [user, setUser] = useState(null);
   const [languages, setLanguages] = useState([]);
   const [tags, setTags] = useState([]);
+  const [frameworks, setFrameworks] = useState([]);
   const searchParams = new URLSearchParams(location.search);
   const idString = searchParams.get('id');
   const id = JSON.parse(decodeURIComponent(idString));
@@ -25,10 +27,16 @@ function ResumeDetailPage() {
             const data = await GetTag(tag);
             return data;
         })
+        const frameworkPromises = userData.frameworks.map(async (tag) => {
+          const data = await GetFramework(tag);
+          return data;
+      })
         const resolvedLanguages = await Promise.all(languagePromises);
         const resolvedTags = await Promise.all(tagPromises);
+        const resolvedFrameworks = await Promise.all(frameworkPromises);
         setLanguages(resolvedLanguages);
         setTags(resolvedTags);
+        setFrameworks(resolvedFrameworks);
 
         const creatorData = await get_user_data(userData.creator);
         setUser(creatorData);
@@ -52,6 +60,7 @@ function ResumeDetailPage() {
               <p>Электронная почта: {user.email}</p>
               <p>Языки: {languages.map((language) => language.title).join(', ')}</p>
               <p>Теги: {tags.map((skill) => skill.title).join(', ')}</p>
+              <p>Фреймворки: {frameworks.map((framework) => framework.title).join(', ')}</p>
               <p>Образование: {data.education}</p>
               <p>Опыт работы: {data.experience}</p>
               <p>Социальные сети: {data.social_links}</p>

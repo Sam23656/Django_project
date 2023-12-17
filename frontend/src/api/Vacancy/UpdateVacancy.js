@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-async function UpdateVacancy(user_id, id, token, title, description, salary, tags, languages) {
+async function UpdateVacancy(user_id, id, token, title, description, salary, tags, languages, frameworks) {
     try {
         const response = await axios({
             method: 'put',
@@ -15,6 +15,7 @@ async function UpdateVacancy(user_id, id, token, title, description, salary, tag
                 title: title,
                 description: description,
                 salary: salary,
+                frameworks: frameworks
             }
         })
 
