@@ -143,6 +143,8 @@ function VacancyDetailPage() {
       <div className="d-flex flex-column align-items-center flex-wrap">
       {Cookies.get('user_role') === 'employer' || Cookies.get('user_role') === 'admin' || Cookies.get('admin_status') === 'true' ? (
         <>
+         {jobApplications.length > 0 ? (
+          <>
           <h1 className="ms-3 me-3">Заявки</h1>
           {jobApplications.map((jobApplication) => (
             <div key={jobApplication.id} className="mb-4 mt-2 p-3 border-primary border rounded" style={{ width: "30%", margin: "10px", boxShadow: "5px 10px 8px rgba(0, 0, 1, .3)" }}>
@@ -150,6 +152,8 @@ function VacancyDetailPage() {
               <button onClick={(e) => buttonClick2(e, jobApplication.creator.id)} className="btn btn-primary">Открыть Чат</button>
             </div>
           ))}
+          </>
+          ) : (<></>)}
         </>
       ) : (Cookies.get('user_role') === 'job_seeker' ? (
         <>

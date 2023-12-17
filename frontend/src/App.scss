@@ -5,3 +5,9 @@
     @extend .rounded;
     @extend .rounded-pill;
 }
+
+.btn-danger{
+    background-color: transparent;
+    @extend .rounded;
+    @extend .rounded-pill;
+}

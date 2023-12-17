@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-async function GetAllMessages(pagination, page) {
+async function GetAllMessages(pagination, page, admin) {
   try {
     if (pagination === undefined){
       const response = await axios.get('http://127.0.0.1:8000/api/Chat/Message/', {
@@ -10,6 +10,12 @@ async function GetAllMessages(pagination, page) {
     else {
     if (page === null) {
         page = 1;
+    }
+    if (admin !== undefined){
+        let response = await axios.get(`http://127.0.0.1:8000/api/Chat/Message/?page=${page}`, {
+      });
+      let data = response.data;
+      return data
     }
     let response = await axios.get(`http://127.0.0.1:8000/api/Chat/Message/?page=${page}`, {
     });

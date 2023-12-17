@@ -78,7 +78,7 @@ function AddResumePage() {
           <input
             type="text"
             className="form-control"
-            placeholder="Search languages"
+            placeholder="Поиск языков"
             onChange={(e) => handleSearchLanguages(e.target.value)}
           />
         </div>
@@ -106,8 +106,7 @@ function AddResumePage() {
         </div>
       </form>
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" className="btn btn-primary" data-bs-dismiss="modal" >Save changes</button>
+        <button type="button" className="btn btn-primary" data-bs-dismiss="modal" >Применить</button>
       </div>
     </div>
   </div>
@@ -125,7 +124,7 @@ function AddResumePage() {
           <input
             type="text"
             className="form-control"
-            placeholder="Search tags"
+            placeholder="Поиск тегов"
             onChange={(e) => handleSearchTags(e.target.value)}
           />
         </div>
@@ -153,8 +152,7 @@ function AddResumePage() {
         </div>
       </form>
       <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" className="btn btn-primary" data-bs-dismiss="modal" >Save changes</button>
+        <button type="button" className="btn btn-primary" data-bs-dismiss="modal" >Применить</button>
       </div>
     </div>
   </div>

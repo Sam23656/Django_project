@@ -15,8 +15,9 @@ function AllMessagesPage() {
       if (id === null) {
         await setId(1)
       }
-      const userData = await GetAllMessages(true, id);
+      const userData = await GetAllMessages(true, id, true);
       setData(userData);
+      console.log(userData)
       setPages(Array.from({ length: Math.ceil(userData.count / 3) }, (_, index) => index + 1));
     };
 

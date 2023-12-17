@@ -26,19 +26,25 @@ function ProfilePage() {
   return (
     <div>
       <div className="d-flex flex-column align-items-center">
-        <div style={{marginTop: "140px", width: "50%"}} className="border d-flex flex-column align-items-center form-control border-primary">
+        <div style={{marginTop: "140px", width: "50%"}} className="border border-primary bg-secondary-subtle d-flex flex-column align-items-center form-control ">
           <h1 className="ms-3 me-3 ">Профиль</h1>
-          <div className='form-control d-flex flex-column align-items-center' style={{width: "70%"}}>
-          <p>Никнейм: {data.username}</p>
-          <p>Имя: {data.full_name}</p>
-          <p>Электронная почта: {data.email}</p>
-          <p>Дата рождения: {data.birth_date ? data.birth_date : 'None'}</p>
-          <p>Роль: {data.role}</p>
+          <div className='form-control border-primary d-flex flex-column align-items-center' style={{width: "70%"}}>
+          <p style={{width: "50%"}} className='form-control bg-secondary-subtle text-center'>Никнейм: {data.username}</p>
+          <p style={{width: "50%"}} className='form-control bg-secondary-subtle text-center'>Имя: {data.full_name}</p>
+          <p style={{width: "50%"}} className='form-control bg-secondary-subtle text-center'>Электронная почта: {data.email}</p>
+          <p style={{width: "50%"}} className='form-control bg-secondary-subtle text-center'>Дата рождения: {data.birth_date ? data.birth_date : 'None'}</p>
+          <p style={{width: "50%"}} className='form-control bg-secondary-subtle text-center'>Роль: {data.role}</p>
+          {Cookies.get("user_role") == "employer" ? (
+            <>
+            <p style={{width: "50%"}} className='form-control bg-secondary-subtle text-center'>Компания {data.company_name}</p>
+            <p style={{width: "50%"}} className='form-control bg-secondary-subtle text-center'>Промышленность {data.industry}</p>
+            </>
+          ) : (<></>)}
           </div>
-          <h3>Резюме:</h3>
+          <h3 className='mt-2'>Резюме:</h3>
           {Resumes.map((resume) => (
-            <div key={resume.id} className='form-control d-flex flex-column align-items-center' style={{width: "70%"}}>
-              <p>Резюме номер: {resume.id}</p>
+            <div key={resume.id} className='form-control border-primary d-flex flex-column align-items-center mt-2' style={{width: "70%"}}>
+              <p style={{width: "50%"}} className='form-control bg-secondary-subtle text-center'>Резюме номер: {resume.id}</p>
               <Link to={`/ResumeDetail?id=${resume.id}`} className="btn btn-primary">Открыть резюме</Link>
             </div>
           ))}

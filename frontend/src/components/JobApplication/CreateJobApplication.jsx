@@ -41,7 +41,7 @@ function CreateJobApplicationPage() {
                 Создать
             </button>
 
-            <button className="btn btn-secondary mt-3 ms-3" onClick={() => navigate(`/VacancyDetail/?id=${id}`)}>
+            <button className="btn btn-danger mt-3 ms-3" onClick={() => navigate(`/VacancyDetail/?id=${id}`)}>
                 Отмена
             </button>
           </form>
