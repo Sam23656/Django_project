@@ -13,6 +13,7 @@ import GetAllVacancies from "../../api/Vacancy/GetAllVacancies";
 import GetAllResume from "../../api/Resume/GetAllResume";
 import GetAllLanguages from "../../api/Language/GetAllLanguages";
 import GetLanguage from "../../api/Language/GetLanguage";
+import { Link } from 'react-router-dom';
 
 
 function AdminPanelPage() {
@@ -77,34 +78,34 @@ function AdminPanelPage() {
   if (data === null || vacancies === null || resumes === null) {
     return <div>Loading...</div>;
   }
-
+  console.log(locationValue)
   return (
     <div>
       <div className="d-flex flex-row justify-content-center  flex-wrap">
-        <div className="d-flex flex-row flex-wrap align-items-center ms-2 form-control" style={{ width: "99%", margin: "auto", height: "100px" }}>
+        <div className="d-flex flex-row flex-wrap align-items-center  border border-primary ms-2 form-control" style={{ width: "99%", margin: "auto", height: "100px" }}>
         <div>
-            <a href='/Admin' className='btn btn-secondary' style={{fontSize: "30px", fontWeight: "bold"}}>Админ панель</a>
+            <a href='/Admin' className='btn btn-primary ' style={{fontSize: "30px", fontWeight: "bold"}}>Админ панель</a>
         </div>
           <div className="ms-3 mt-2">
-            <a href='/Admin?location=Vacancy' className='btn btn-secondary form-control'>Вакансии</a>
+            <a href='/Admin?location=Vacancy' className='btn btn-primary  form-control'>Вакансии</a>
           </div>
           <div className="ms-3 mt-2">
-            <a href='/Admin?location=Resume' className='btn btn-secondary'>Резюме</a>
+            <a href='/Admin?location=Resume' className='btn btn-primary '>Резюме</a>
           </div>
           <div className="ms-3 mt-2">
-            <a href='/Admin?location=Languages' className='btn btn-secondary'>Языки</a>
+            <a href='/Admin?location=Languages' className='btn btn-primary '>Языки</a>
           </div>
           <div className="ms-3 mt-2">
-            <a href='/Admin?location=Tags' className='btn btn-secondary'>Теги</a>
+            <a href='/Admin?location=Tags' className='btn btn-primary '>Теги</a>
           </div>
           <div className="ms-3 mt-2">
-            <a href='/Admin?location=Messages' className='btn btn-secondary'>Сообщения</a>
+            <a href='/Admin?location=Messages' className='btn btn-primary '>Сообщения</a>
           </div>
           <div className="ms-3 mt-2">
-            <a href='/Admin?location=Feedback' className='btn btn-secondary'>Отзывы</a>
+            <a href='/Admin?location=Feedback' className='btn btn-primary '>Отзывы</a>
           </div>
           <div className="ms-3 mt-2">
-            <a href='/Admin?location=Framework' className='btn btn-secondary'>Фреймворки</a>
+            <a href='/Admin?location=Framework' className='btn btn-primary '>Фреймворки</a>
           </div>
       </div>
       <div className="" style={{ width: "100%" }}>
@@ -136,37 +137,47 @@ function AdminPanelPage() {
           <div>
             <AllFrameworksPage />
           </div>
-        ) : (<div>
+        ) : (<div></div>)}
+        {(locationValue == 'null') ? (
+          <>
           {vacancies && (
-        <div className="mt-5 ms-5 align-self-start d-flex">
-            <div className="mt-5 ms-5 align-self-start d-flex">
-                <p className="form-control" style={{ width: "250px" }}>Количество вакансий: {vacancies.length}</p>
-                <p className="ms-5 form-control" style={{ width: "250px" }}>Количество резюме: {resumes.length}</p>
-                </div>
-              </div>
-                  )}
-                  <div className="mt-5 bg-secondary-subtle form-control ms-3" style={{ width: "98%" }}>
-                    <h2>Популярны языки:</h2>
-                    <div className="d-flex flex-wrap justify-content-center ">
+           <div className=""style={{ width: "100%", marginTop: "150px", height: "50vh"}}>
+            <div className="d-flex ms-3 me-3 flex-column align-self-start justify-content-center border border-primary  bg-dark rounded " >
+                  <div>
+                  <div className="mt-3">
+                      <h2 className="ms-3">Последние Вакансии:</h2>
+                      <div className="d-flex flex-wrap justify-content-center">
+                        {vacancies.slice(-10).reverse().map((vacancy) => (
+                          <Link to={`/VacancyDetail?id=${vacancy.id}`} className="m-3 p-3  border border-primary rounded bg-secondary-subtle" style={{ maxwidth: "350px", maxHeight: "100px", textDecoration: "none"}} key={vacancy.id}>
+                            <h3 className="text-light">{vacancy.title}</h3>
+                          </Link>
+                        ))}
+                      </div>
+                      <div className="mt-3 d-flex ms-3  align-items-center justify-content-center">
+                      <p className="form-control bg-secondary-subtle border border-primary" style={{ width: "250px" }}>Количество вакансий: {vacancies.length}</p>
+                      <p className="ms-5 form-control bg-secondary-subtle border border-primary" style={{ width: "250px" }}>Количество резюме: {data.length}</p>
+                  </div>
+                  </div>
+                  <div className="mt-3">
+                    <h2 className="ms-3">Популярны языки:</h2>
+                    <div className="d-flex flex-wrap justify-content-center">
                       {Object.entries(popularLanguages).map(([language, count]) => (
-                        <div className="p-2 form-control" style={{ width: "300px", height: "50px", margin: "10px" }} key={language}>
+                        <p className="m-3 p-3 border border-primary rounded bg-secondary-subtle" style={{ maxwidth: "350px", maxHeight: "100px", textDecoration: "none"}} key={language.id}>
                           {language}: {count}
-                        </div>
+                        </p>
                       ))}
                     </div>
                   </div>
-                  <div className="mt-5 bg-secondary-subtle form-control ms-3" style={{ width: "98%" }}>
-                        <h2>Последние Вакансии:</h2>
-                        <div className="d-flex flex-wrap justify-content-center ">
-                        {vacancies.slice(-10).reverse().map((vacancy) => (
-                          <div className="m-3 form-control" style={{ width: "250px", maxheight: "100px" }} key={vacancy.id}>
-                            <h3>Название: {vacancy.title}</h3>
-                          </div>
-                        ))}
-                        </div>
+                  <div className="mt-3 d-flex ms-3  align-items-center justify-content-center">
+                    <p className="form-control border border-primary bg-secondary-subtle" style={{ width: "250px" }}>Количество вакансий: {vacancies.length}</p>
+                    <p className="ms-5 form-control border border-primary bg-secondary-subtle" style={{ width: "250px" }}>Количество резюме: {data.length}</p>
                   </div>
-                  <div className="d-flex flex-wrap justify-content-center text-secondary mt-2" style={{ height: "30px" }}><p>© 2023 ООО «JobPulse»</p></div>
-              </div>)}
+                  </div>
+                  
+              </div>
+           </div>)}
+           </>
+        ) : (<></>)}
       </div>
     </div>
     </div>

@@ -1,6 +1,7 @@
 import register_account from "../../api/Auth/register";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import Cookies from "js-cookie";
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -31,12 +32,11 @@ function Register() {
   const handleCheckboxChange = (type) => {
     setUserType(type);
   }
-
   return (
     <div className="d-flex flex-column align-items-center justify-content-center mt-5">
-      <p className="mb-4">Logo</p>
-      <form className="form-control d-flex flex-column align-items-center" style={{ width: "80%", maxWidth: "400px" }}>
-        <div className="mb-4">
+      <p className="mb-4">JobPulse</p>
+      <form className="form-control bg-secondary-subtle d-flex flex-column align-items-center" style={{ width: "80%", maxWidth: "400px" }}>
+        <div className="mb-4 mt-2">
           <input
             className="form-control"
             onChange={(e) => setUsername(e.target.value)}
@@ -87,7 +87,7 @@ function Register() {
             checked={userType === 'job_seeker'}
             onChange={() => handleCheckboxChange('job_seeker')}
           />
-          <label className="btn btn-outline-primary" htmlFor="btnradio1">Соискатель</label>
+          <label className="btn btn-outline-primary rounded rounded-pill " htmlFor="btnradio1">Соискатель</label>
           <input
             type="radio"
             className="btn-check"
@@ -97,7 +97,7 @@ function Register() {
             checked={userType === 'employer'}
             onChange={() => handleCheckboxChange('employer')}
           />
-          <label className="btn btn-outline-primary" htmlFor="btnradio2">Работодатель</label>
+          <label className="btn btn-outline-primary rounded rounded-pill ms-2" htmlFor="btnradio2">Работодатель</label>
           <input
             type="radio"
             className="btn-check"
@@ -107,7 +107,7 @@ function Register() {
             checked={userType === 'moderator'}
             onChange={() => handleCheckboxChange('moderator')}
           />
-          <label className="btn btn-outline-primary" htmlFor="btnradio3">Модератор</label>
+          <label className="btn btn-outline-primary rounded rounded-pill ms-2" htmlFor="btnradio3">Модератор</label>
         </div>
         <br />
         <label>Дата рождения:</label>
@@ -134,7 +134,7 @@ function Register() {
             />
           </div>
         )}
-        <button onClick={(e) => buttonClick(e)} className="btn btn-primary mt-2">Зарегистрироваться</button>
+        <button style={{ width: "300px", height: "55px" }} onClick={(e) => buttonClick(e)} className="btn mb-2 mt-3 btn-primary rounded rounded-pill">Зарегистрироваться</button>
       </form>
     </div>
   );
