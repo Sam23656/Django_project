@@ -82,7 +82,7 @@ function AdminPanelPage() {
   return (
     <div>
       <div className="d-flex flex-row justify-content-center  flex-wrap">
-        <div className="d-flex flex-row flex-wrap align-items-center  border border-primary ms-2 form-control" style={{ width: "99%", margin: "auto", height: "100px" }}>
+        <div className="d-flex flex-row flex-wrap align-items-center  border border-primary ms-2 form-control" style={{ width: "99%", margin: "auto", height: "auto" }}>
         <div>
             <a href='/Admin' className='btn btn-primary ' style={{fontSize: "30px", fontWeight: "bold"}}>Админ панель</a>
         </div>

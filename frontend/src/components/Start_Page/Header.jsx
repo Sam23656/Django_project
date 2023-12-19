@@ -104,6 +104,13 @@ function Header() {
             <li className="nav-item">
                <p className="ms-2"><a className="btn btn-danger rounded rounded-pill  " href="/Logout">Выйти</a></p>
             </li>
+            {Cookies.get("user_role") === "admin"  ? (
+              <>
+                            <li className="nav-item">
+                            <p className="ms-2"><a className="btn btn-primary rounded rounded-pill header-button-register" href="/Register">Новый пользователь</a></p>
+                          </li>
+              </>
+            ) : (<></>)}
             </>
             ) : (
             <>

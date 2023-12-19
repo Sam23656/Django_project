@@ -41,6 +41,8 @@ function ProfilePage() {
             </>
           ) : (<></>)}
           </div>
+          {Cookies.get("user_role") == "job_seeker" ? (
+          <>
           <h3 className='mt-2'>Резюме:</h3>
           {Resumes.map((resume) => (
             <div key={resume.id} className='form-control border-primary d-flex flex-column align-items-center mt-2' style={{width: "70%"}}>
@@ -48,6 +50,8 @@ function ProfilePage() {
               <Link to={`/ResumeDetail?id=${resume.id}`} className="btn btn-primary">Открыть резюме</Link>
             </div>
           ))}
+          </>
+          ) : (<></>)}
         </div>
         
       </div>

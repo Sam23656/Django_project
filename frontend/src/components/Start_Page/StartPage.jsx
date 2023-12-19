@@ -67,14 +67,14 @@ function StartPage() {
   }
 
   return (
-    <div className="bg-secondary-subtle form-control border border-primary" style={{ height: "88vh" }}>
+    <div className="bg-secondary-subtle form-control border border-primary" style={{ height: "100%" }}>
       <div className="d-flex flex-column  align-items-center bg-secondary-subtle">
         <div className="mt-5 ms-3 align-self-start">
           <h1 style={{ fontSize: "65px" }}>Работа найдётся для каждого</h1>
           <p style={{ fontSize: "40px" }}>Найди работу и начинай зарабатывать деньги</p>
         </div>
 
-        <div className=""style={{ width: "100%", marginTop: "150px", height: "50vh"}}>
+        <div className="mb-3"style={{ width: "100%", marginTop: "150px", height: "100%"}}>
           {Cookies.get("access_token") ? (
             <div className="d-flex ms-3 me-3 flex-column align-self-start justify-content-center border border-primary  bg-dark rounded " >
                 <div>
@@ -121,7 +121,7 @@ function StartPage() {
                   <button style={{ width: "350px", height: "55px" }} onClick={(e) => buttonClick(e)} className="btn btn-primary rounded rounded-pill">Войти</button>
                 </form>
               </div>
-              <div className="mt-3 d-flex ms-3 bg-secondary-subtle align-items-center justify-content-center">
+              <div className="mt-3 d-flex ms-3 bg-secondary-subtle align-items-center justify-content-center mb-3">
                   <p className="form-control border border-primary bg-secondary-subtle" style={{ width: "250px" }}>Количество вакансий: {vacancies.length}</p>
                   <p className="ms-5 form-control border border-primary bg-secondary-subtle" style={{ width: "250px" }}>Количество резюме: {data.length}</p>
                 </div>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-async function CreateChat(token, first_user_id, second_user_id, chat_id) {
+async function CreateChat(token, first_user_id, second_user_id, vacancy_id) {
     try {
         const response = await axios({
             method: 'post',
@@ -11,7 +11,7 @@ async function CreateChat(token, first_user_id, second_user_id, chat_id) {
             data: {
                 first_user: first_user_id,
                 second_user: second_user_id,
-                resume: chat_id
+                vacancy: vacancy_id
             }
         })
 

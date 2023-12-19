@@ -98,16 +98,21 @@ function Register() {
             onChange={() => handleCheckboxChange('employer')}
           />
           <label className="btn btn-outline-primary rounded rounded-pill ms-2" htmlFor="btnradio2">Работодатель</label>
-          <input
-            type="radio"
-            className="btn-check"
-            name="btnradio"
-            id="btnradio3"
-            autoComplete="off"
-            checked={userType === 'moderator'}
-            onChange={() => handleCheckboxChange('moderator')}
-          />
-          <label className="btn btn-outline-primary rounded rounded-pill ms-2" htmlFor="btnradio3">Модератор</label>
+          {Cookies.get('user_role') === 'admin' && (
+                      <>
+                      <input
+                      type="radio"
+                      className="btn-check"
+                      name="btnradio"
+                      id="btnradio3"
+                      autoComplete="off"
+                      checked={userType === 'moderator'}
+                      onChange={() => handleCheckboxChange('moderator')}
+                    />
+                    <label className="btn btn-outline-primary rounded rounded-pill ms-2" htmlFor="btnradio3">Модератор</label>
+                    </>
+          )}
+
         </div>
         <br />
         <label>Дата рождения:</label>

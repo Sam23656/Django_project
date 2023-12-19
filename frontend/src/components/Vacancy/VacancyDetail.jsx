@@ -82,8 +82,7 @@ function VacancyDetailPage() {
         setUser(creatorData);
   
         const jobApplicationsData = await GetJobApplications();
-        
-        const filteredJobApplications = jobApplicationsData.filter(jobApplication => jobApplication.vacancy == id);
+        const filteredJobApplications = jobApplicationsData.results.filter(jobApplication => jobApplication.vacancy == id);
        
         const mappedJobApplications = await Promise.all(filteredJobApplications.map(async jobApplication => {
           const userData = await get_user_data(jobApplication.creator);
@@ -138,13 +137,13 @@ function VacancyDetailPage() {
               <p>Дата создания вакансии: {new Date(data.created_at).toLocaleDateString()}</p>
               <>{user.id == Cookies.get("id") || Cookies.get("admin_status") === 'true'  ? (
                 <>
-                  <a className='btn btn-primary' href={`/VacancyUpdate/?id=${data.id}`}>Редактировать вакансию</a>
-                  <a className='ms-2 btn btn-primary' href={`/VacancyDelete/?id=${data.id}`}>Удалить вакансию</a>
+                  <a className='btn btn-primary mt-2' href={`/VacancyUpdate/?id=${data.id}`}>Редактировать вакансию</a>
+                  <a className='ms-2 btn btn-primary mt-2' href={`/VacancyDelete/?id=${data.id}`}>Удалить вакансию</a>
                 </>
               ) : (Cookies.get("user_role")) == "moderator" ? (<>
-                <a className='ms-2 btn btn-primary' href={`/VacancyDelete/?id=${data.id}`}>Удалить вакансию</a>
+                <a className='ms-2 btn btn-primary mt-2' href={`/VacancyDelete/?id=${data.id}`}>Удалить вакансию</a>
               </>) : (<></>)}</>
-              <>{Cookies.get('user_role') == 'job_seeker' || Cookies.get('admin_status') === 'true' ? <a className='ms-2 btn btn-primary' href={`/CreateJobApplication/?id=${data.id}`}>Подать заявку</a> : <></> }</>
+              <>{Cookies.get('user_role') == 'job_seeker' || Cookies.get('admin_status') === 'true' ? <a className='ms-2 btn btn-primary  mt-2' href={`/CreateJobApplication/?id=${data.id}`}>Подать заявку</a> : <></> }</>
             </div>
         </div>
       </div>

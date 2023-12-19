@@ -125,7 +125,7 @@ function ChatPage() {
                   : ''
               }`}
               style={{
-                width: '30%',
+                maxWidth: '60%',
                 margin: '10px',
                 boxShadow: '5px 10px 8px rgba(0, 0, 1, .3)',
               }}
@@ -138,11 +138,12 @@ function ChatPage() {
               }
               }
             >
-              
+              <div style={{maxWidth: '300px'}}>
               <p className='mt-3'>
                 {chat.second_user && chat.second_user.username}
               </p>
               <p>{chat.vacancy.title}</p>
+              </div>
             </div>
           ))}
         </div>
